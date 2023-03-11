@@ -2,11 +2,11 @@
   "name": "esunekiti",
   "version": "1.0.0",
   "description": "esun ekiti",
-  "main": "./dist/index.js",
+  "main": "./build/index.js",
   "scripts": {
     "lint": "eslint . --fix",
     "build": "tsc -b",
-    "start:prod": "node ./dist/index.js",
+    "start:prod": "node ./build/index.js",
     "dev:debug": "nodemon --config nodemon.json --inspect src/modules/history/history.services.ts",
     "dist": "tsc -p .",
     "start:dev": "nodemon --config nodemon.json src/index.ts",
