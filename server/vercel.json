@@ -10,7 +10,7 @@
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/endpoint"
+        "dest": "/endpoint/endpoint.js"
       }
     ]
   }
