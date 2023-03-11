@@ -141,3 +141,5 @@ yarn-error.log*
 tmp/
 dist/
 /dist
+/public
+**/public
