@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "lint": "eslint . --fix",
-    "build": "rm -rf dist && tsc -b",
+    "build": "tsc -b",
     "start:prod": "node ./dist/index.js",
     "dev:debug": "nodemon --config nodemon.json --inspect src/modules/history/history.services.ts",
     "dist": "tsc -p .",
