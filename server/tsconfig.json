@@ -5,7 +5,7 @@
     "lib": ["es6"],
     "module": "commonjs",
     "allowJs": true,
-    "outDir": "./build",
+    "outDir": "./public",
     // "noImplicitAny": true,
     "baseUrl": ".",
     "noImplicitAny": true,
