@@ -1,0 +1,30 @@
+{
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "compilerOptions": {
+    "target": "ES6",
+    "lib": ["es6"],
+    "module": "commonjs",
+    "allowJs": true,
+    "outDir": "./dist",
+    // "noImplicitAny": true,
+    "baseUrl": ".",
+    "noImplicitAny": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "removeComments": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "paths": {
+      "*": ["node_modules", "src/*"]
+    },
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["@types", "./node_modules/@types"]
+  },
+  "include": ["./src/**/*.ts", "./public", "./src/**/*.js"], //./src/**/*.ts
+  "exclude": ["node_modules"],
+  "files":["./src/@types/index.d.ts"]
+}
