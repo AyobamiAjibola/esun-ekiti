@@ -19,7 +19,7 @@ export const corsOptions = {
     'http://localhost:3000',
     <string>process.env.ADMIN_PORTAL
   ],
-  method: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true,
 };
 
