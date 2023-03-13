@@ -59,6 +59,7 @@ export default function Login () {
       navigate("/council");
     } catch (err: any) { // eslint-disable-line
       err.response.data?.error?.status === 'fail' && setIsError(err.response.data?.message);
+      console.log(err.response, "error right here")
       setIsLoading(false)
     }
   };
@@ -66,7 +67,7 @@ export default function Login () {
   useLayoutEffect(() => {
     document.body.style.backgroundColor = process.env.REACT_APP_MAIN_COLOR as string
   })
-  console.log(isError)
+
   return (
     <>
       <Box
