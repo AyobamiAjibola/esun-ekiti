@@ -17,10 +17,10 @@ export const corsOptions = {
   origin: [
     'http://localhost:3001',
     'http://localhost:3000',
-    'https://esun-ekiti-portal.onrender.com',
-    <string>process.env.ADMIN_PORTAL
+    // 'https://esun-ekiti-portal.onrender.com',
+    // <string>process.env.ADMIN_PORTAL
   ],
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  // methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true,
 };
 
