@@ -59,6 +59,7 @@ export default function Login () {
       navigate("/council");
     } catch (err: any) { // eslint-disable-line
       err.response.data.status === 'fail' && setIsError(err.response.data?.message);
+      console.log(err.response)
       setIsLoading(false)
     }
   };
