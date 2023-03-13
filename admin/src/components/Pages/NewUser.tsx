@@ -77,7 +77,7 @@ export default function NewUser () {
       setState({ ...state, newUser: true })
     } catch (err: any) {
       setValues({ ...values, errImg: err.response.data.errors });
-      err.response.data.error.status === 'fail' && setIsError(err.response.data.message);
+      err.response.data.status === 'fail' && setIsError(err.response.data.message);
       setValues({ ...values, isLoading: false })
     }
   };

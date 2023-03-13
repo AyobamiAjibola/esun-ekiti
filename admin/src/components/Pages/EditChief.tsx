@@ -109,7 +109,7 @@ export default function EditChief () {
       handleClose()
       navigate('/council')
     } catch (err: any) {
-      err.response.data.error.status === 'fail' && setIsError(err.response.data.message);
+      err.response.data.status === 'fail' && setIsError(err.response.data.message);
       setValues({ ...values, isLoading: false })
     }
   };

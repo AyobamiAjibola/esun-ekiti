@@ -144,7 +144,7 @@ export default function EditEvent () {
       setUpdate(true)
       handleClose()
     } catch (err: any) {
-      err.response.data.error.status === 'fail' && setIsError(err.response.data.message);
+      err.response.data.status === 'fail' && setIsError(err.response.data.message);
       setValues({ ...values, isLoading: false })
     }
   };
@@ -195,7 +195,7 @@ export default function EditEvent () {
       });
     }
   }, [reset, response]);
-  console.log(response)
+
   return (
     <Box className={ classes.wrapper }>
         { !loading

@@ -298,7 +298,7 @@ export default function Oba () {
       setOlori(true)
       reset()
     } catch (err: any) {
-      err.response.data.error.status === 'fail' && setOloriErr(err.response.data.message);
+      err.response.data.status === 'fail' && setOloriErr(err.response.data.message);
       setValues({ ...values, isLoading: false })
     }
   };
@@ -322,7 +322,7 @@ export default function Oba () {
 
       setOlori(true)
     } catch (err: any) {
-      err.response.data.error.status === 'fail' && setOloriErr(err.response.data.message);
+      err.response.data.status === 'fail' && setOloriErr(err.response.data.message);
       setValues({ ...values, isLoading: false })
     }
   };
@@ -1208,7 +1208,7 @@ function ObaModal ({ resource, classes, axiosPrivate, setUpdate, state, setState
       setUpdate(true)
       handleClose()
     } catch (err: any) {
-      err.response.data.error.status === 'fail' && setIsError(err.response.data.message);
+      err.response.data.status === 'fail' && setIsError(err.response.data.message);
       setValues({ ...values, isLoading: false })
     }
   };
@@ -1236,7 +1236,7 @@ function ObaModal ({ resource, classes, axiosPrivate, setUpdate, state, setState
       setUpdate(true)
       handleClose()
     } catch (err: any) {
-      err.response.data.error.status === 'fail' && setIsError(err.response.data.message);
+      err.response.data.status === 'fail' && setIsError(err.response.data.message);
       setValues({ ...values, isLoading: false })
     }
   };
@@ -1760,7 +1760,7 @@ function PastObaModal ({ classes, axiosPrivate, setUpdate, state, setState }: Pa
       handleClose()
     } catch (err: any) {
       setValues({ ...values, errImg: err.response.data.errors })
-      err.response.data.error.status === 'fail' && setIsError(err.response.data.message);
+      err.response.data.status === 'fail' && setIsError(err.response.data.message);
       setValues({ ...values, isLoading: false })
     }
   };
