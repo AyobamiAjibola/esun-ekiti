@@ -390,7 +390,7 @@ function NewUser ({ setUpdate, state, setState, axiosPrivate }: UserProps) {
       setValues({ ...values, isLoading: false })
     }
   };
-  console.log(state.addSuccess)
+
   return (
     <>
       <Fade in={state.newUser}>

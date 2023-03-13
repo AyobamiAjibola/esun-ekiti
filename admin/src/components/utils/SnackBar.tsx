@@ -24,7 +24,8 @@ export default function SnackBar () {
         imgSuccess: false,
         addSuccess: false,
         updSuccess: false,
-        updPassSuccess: false
+        updPassSuccess: false,
+        newUser: false
       }
     );
   };
@@ -36,7 +37,8 @@ export default function SnackBar () {
             state.success ||
             state.addSuccess ||
             state.updSuccess ||
-            state.updPassSuccess
+            state.updPassSuccess ||
+            state.newUser
           } autoHideDuration={6000} onClose={closeSnacky}
         >
           <Alert onClose={closeSnacky} severity="success" sx={{ width: '100%' }}>
@@ -45,6 +47,7 @@ export default function SnackBar () {
             { state.addSuccess && 'Successfully created' }
             { state.updSuccess && 'Successfully updated' }
             { state.updPassSuccess && 'Successfully changed your password' }
+            { state.newUser && 'Successfully registered' }
           </Alert>
         </Snackbar>
     </>

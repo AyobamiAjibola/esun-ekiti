@@ -9,7 +9,6 @@ import { verifyBcryptPassword } from "../../utils/auth";
 import { verifyRefreshToken } from "../../utils/verifyRefreshToken";
 
 const { Admin } = db;
-const { User } = db;
 const { sequelize } = db;
 const { UserToken } = db;
 
@@ -18,7 +17,9 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
   try {
     transaction = await sequelize.transaction();
     const { phone_num, password } = body;
+
     const user = await Admin.findOne({ where: { phone_num } }, { transaction });
+
     if (!user || user === null) {
       return next(new AppError("Invalid phone number or password", BAD_REQUEST));
     }
@@ -37,44 +38,6 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
     });
 
     return {token};
-  } catch (e: any) {
-    if (transaction) {
-      await transaction.rollback();
-    }
-    return next(new AppError(e, BAD_REQUEST));
-  }
-};
-
-export const userLogin = async (res: Response, body: AuthType, next: NextFunction) => {
-  let transaction;
-  try {
-    transaction = await sequelize.transaction();
-    const { phone_num, password } = body;
-    const user = await User.findOne({ where: { phone_num } }, { transaction });
-    if (!user || user === null) {
-      return next(new AppError("Invalid phone number or password", BAD_REQUEST));
-    }
-
-    const isMatch = verifyBcryptPassword(password, user.password);
-    if (!isMatch) {
-      return next(new AppError("Invalid phone number or password", BAD_REQUEST));
-    }
-
-    await transaction.commit();
-    const { token, refreshToken } = await jwtGenerator(user);
-
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000 //7 days
-    });
-
-    res.cookie('token', token, {
-      httpOnly: true,
-      maxAge: 60000 //5 min 300000
-    });
-
-    return user;
-
   } catch (e: any) {
     if (transaction) {
       await transaction.rollback();

@@ -8,6 +8,7 @@ import useToggle from "../hooks/useToggle";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useLayoutEffect, useState } from 'react';
 import { LoadingButton } from "@mui/lab";
+import SnackBar from "../utils/SnackBar";
 
 interface Inputs {
   phone_num: string
@@ -257,6 +258,7 @@ export default function Login () {
             </Typography>}
           </Box>
         </Box>
+        <SnackBar />
       </Box>
     </>
   )

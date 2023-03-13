@@ -22,6 +22,7 @@ import Users from "./components/Pages/Users";
 import EditUser from "./components/Pages/EditUser";
 import Event from "./components/Pages/Event";
 import EditEvent from "./components/Pages/EditEvent";
+import NewUser from "./components/Pages/NewUser";
 
 function App () {
   const { auth } = useAuth();
@@ -30,6 +31,7 @@ function App () {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/register" element={<NewUser />} />
 
         <Route element={<PersistentLogin/>} >
           <Route element={<ProtectedRoute/>}>

@@ -92,7 +92,7 @@ export default function Sidebar () {
 
   const signOut = async () => {
     await logout()
-    navigate('/login')
+    navigate('/')
   }
 
   const handleDrawerOpen = () => {
