@@ -12,20 +12,21 @@ import globalErrorHandler from "./error/error.controller";
 import routes from "../endpoint/endpoint";
 
 dotenv.config({ path: resolve(__dirname, "../.env") });
-// import 'dotenv/config';
+
+export const corsOptions = {
+  origin: [
+    'http://localhost:3001',
+    'http://localhost:3000',
+    <string>process.env.ADMIN_PORTAL
+  ],
+  credentials: true,
+};
 
 const createServer = () => {
   const app = express();
   app.use(express.json());
   app.use(cookieParser());
-  app.use(cors({
-    origin: [
-      'http://localhost:3001',
-      'http://localhost:3000',
-      'https://esun-ekiti-portal.onrender.com/'
-    ],
-    credentials: true
-  }));
+  app.use(cors(corsOptions)); //handle cors operations
   app.use(helmet({ crossOriginEmbedderPolicy: false }));
   app.use("/uploads", express.static("uploads"));
 
