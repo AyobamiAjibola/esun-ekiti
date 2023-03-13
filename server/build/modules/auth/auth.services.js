@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logout = exports.refreshToks = exports.userLogin = exports.adminLogin = void 0;
+exports.logout = exports.refreshToks = exports.adminLogin = void 0;
 const jwtGenerator_1 = require("../../utils/jwtGenerator");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const models_1 = __importDefault(require("../../sequelize/models"));
@@ -21,7 +21,6 @@ const appError_1 = __importDefault(require("../../utils/appError"));
 const auth_1 = require("../../utils/auth");
 const verifyRefreshToken_1 = require("../../utils/verifyRefreshToken");
 const { Admin } = models_1.default;
-const { User } = models_1.default;
 const { sequelize } = models_1.default;
 const { UserToken } = models_1.default;
 const adminLogin = (res, body, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -53,39 +52,6 @@ const adminLogin = (res, body, next) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.adminLogin = adminLogin;
-const userLogin = (res, body, next) => __awaiter(void 0, void 0, void 0, function* () {
-    let transaction;
-    try {
-        transaction = yield sequelize.transaction();
-        const { phone_num, password } = body;
-        const user = yield User.findOne({ where: { phone_num } }, { transaction });
-        if (!user || user === null) {
-            return next(new appError_1.default("Invalid phone number or password", response_codes_1.BAD_REQUEST));
-        }
-        const isMatch = (0, auth_1.verifyBcryptPassword)(password, user.password);
-        if (!isMatch) {
-            return next(new appError_1.default("Invalid phone number or password", response_codes_1.BAD_REQUEST));
-        }
-        yield transaction.commit();
-        const { token, refreshToken } = yield (0, jwtGenerator_1.jwtGenerator)(user);
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        });
-        res.cookie('token', token, {
-            httpOnly: true,
-            maxAge: 60000
-        });
-        return user;
-    }
-    catch (e) {
-        if (transaction) {
-            yield transaction.rollback();
-        }
-        return next(new appError_1.default(e, response_codes_1.BAD_REQUEST));
-    }
-});
-exports.userLogin = userLogin;
 const refreshToks = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, verifyRefreshToken_1.verifyRefreshToken)(req.cookies['refreshToken'], req, next);

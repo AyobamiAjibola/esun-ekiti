@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.corsOptions = void 0;
 const express_1 = __importDefault(require("express"));
 const helmet_1 = __importDefault(require("helmet"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -16,17 +17,19 @@ const response_codes_1 = require("../constants/response-codes");
 const error_controller_1 = __importDefault(require("./error/error.controller"));
 const endpoint_1 = __importDefault(require("../endpoint/endpoint"));
 dotenv_1.default.config({ path: (0, path_1.resolve)(__dirname, "../.env") });
+exports.corsOptions = {
+    origin: [
+        'http://localhost:3001',
+        'http://localhost:3000',
+        process.env.ADMIN_PORTAL
+    ],
+    credentials: true,
+};
 const createServer = () => {
     const app = (0, express_1.default)();
     app.use(express_1.default.json());
     app.use((0, cookie_parser_1.default)());
-    app.use((0, cors_1.default)({
-        origin: [
-            'http://localhost:3001',
-            'http://localhost:3000'
-        ],
-        credentials: true
-    }));
+    app.use((0, cors_1.default)(exports.corsOptions));
     app.use((0, helmet_1.default)({ crossOriginEmbedderPolicy: false }));
     app.use("/uploads", express_1.default.static("uploads"));
     (0, endpoint_1.default)(app);

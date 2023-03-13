@@ -57,27 +57,6 @@ const login_admin = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         return next(new appError_1.default(error.message, response_codes_1.BAD_REQUEST));
     }
 });
-const login_user = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const validate = authValidator.authLogin(req.body);
-        if (validate.error) {
-            return next(new appError_1.default(validate.error.message, response_codes_1.BAD_REQUEST));
-        }
-        const user = yield (0, auth_services_1.userLogin)(res, req.body, next);
-        return res.status(response_codes_1.OK).json({
-            status: "success",
-            message: "Login was successful.",
-            data: {
-                id: user.id,
-                isAdmin: user.isAdmin,
-                user_type: user.user_type
-            }
-        });
-    }
-    catch (error) {
-        return next(new appError_1.default(error.message, response_codes_1.BAD_REQUEST));
-    }
-});
 const new_access_token = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, auth_services_1.refreshToks)(req, res, next);
@@ -100,7 +79,6 @@ const logout_user = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
 });
 exports.default = {
     login_admin,
-    login_user,
     new_access_token,
     logout_user
 };

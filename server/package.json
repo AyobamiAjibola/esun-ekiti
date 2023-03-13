@@ -13,7 +13,7 @@
     "profile:dev": "node --prof src/modules/history/history.controller.ts",
     "create:db": "cross-env NODE_ENV=development npx sequelize-cli db:create --config src/sequelize/config/config.js",
     "migrate": "cross-env NODE_ENV=development npx sequelize-cli db:migrate --config src/sequelize/config/config.js",
-    "migrate:prod": "cross-env NODE_ENV=production npx sequelize-cli db:migrate --config ./build/sequelize/config/config.js",
+    "migrate:prod": "npx sequelize-cli db:migrate --config ./build/sequelize/config/config.js",
     "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate src/sequelize/config/config.js"
   },
   "repository": {
