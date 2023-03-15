@@ -6,6 +6,7 @@ import { BAD_REQUEST, FORBIDDEN } from "../../constants/response-codes";
 import AppError from "../../utils/appError";
 import { getPagination, getPagingData } from "../../helpers/Pagination";
 
+
 const { sequelize } = db;
 const { Oba } = db;
 const { Olori } = db;

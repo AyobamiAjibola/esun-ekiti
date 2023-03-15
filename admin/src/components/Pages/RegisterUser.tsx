@@ -28,9 +28,11 @@ interface Pagination {
 
 interface UserProps {
   setUpdate: any
-  state: any
-  setState: any
   axiosPrivate: any
+  newUserPage: boolean
+  setNewUserPage: any
+  setState: any
+  state: any
 }
 
 interface Inputs {
@@ -113,10 +115,11 @@ export default function RegisterUser () {
   });
   const [state, setState] = useContext(SnackContext);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [newUserPage, setNewUserPage] = useState(false)
 
   const handleOpen = () => setValues({ ...values, open: true });
   const handleClose = () => setValues({ ...values, open: false });
-  const handleOpens = () => setState({ ...state, newUser: true });
+  const handleOpens = () => setNewUserPage(true);
 
   const getUsers = async () => {
     try {
@@ -167,7 +170,7 @@ export default function RegisterUser () {
           mt: 4
         }}
       >
-        { !state.newUser && <Button className={ classes.btn1 } onClick={ handleOpens }
+        { !newUserPage && <Button className={ classes.btn1 } onClick={ handleOpens }
           size='medium'
           sx={{
             boxShadow: 4,
@@ -178,7 +181,7 @@ export default function RegisterUser () {
           Add User
         </Button>}
       </Box>
-      {state.newUser && <Box className={ classes.wrap }
+      {newUserPage && <Box className={ classes.wrap }
         sx={{
           width: { sm: "60%", xs: "80%" },
           boxShadow: 5,
@@ -188,9 +191,11 @@ export default function RegisterUser () {
       >
         <NewUser
           setUpdate={ setUpdList }
-          state={ state }
-          setState={ setState }
+          newUserPage={newUserPage}
+          setNewUserPage={setNewUserPage}
           axiosPrivate={ axiosPrivate }
+          setState={setState}
+          state={state}
         />
       </Box>}
       { !state.newUser && <Box className={ classes.container }
@@ -330,7 +335,7 @@ export default function RegisterUser () {
 }
 
 // New User
-function NewUser ({ setUpdate, state, setState, axiosPrivate }: UserProps) {
+function NewUser ({ setUpdate, axiosPrivate, newUserPage, setNewUserPage, setState, state }: UserProps) {
   const [values, setValues] = useState<any>({
     isLoading: false,
     isErr: null,
@@ -348,7 +353,7 @@ function NewUser ({ setUpdate, state, setState, axiosPrivate }: UserProps) {
   };
 
   const handleClose = () => {
-    setState({ ...state, newUser: false })
+    setNewUserPage(false)
     reset()
   };
 
@@ -383,6 +388,7 @@ function NewUser ({ setUpdate, state, setState, axiosPrivate }: UserProps) {
       setValues({ ...values, isLoading: false });
 
       setUpdate(true)
+      setState({ ...state, newUser: true })
       handleClose()
     } catch (err: any) {
       setValues({ ...values, errImg: err.response.data.errors });
@@ -393,7 +399,7 @@ function NewUser ({ setUpdate, state, setState, axiosPrivate }: UserProps) {
 
   return (
     <>
-      <Fade in={state.newUser}>
+      <Fade in={newUserPage}>
         <Box
           sx={{
             display: 'flex',

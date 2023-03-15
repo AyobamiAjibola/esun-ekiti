@@ -24,7 +24,7 @@ const register_admin = async (req: Request, res: Response, next: NextFunction) =
     });
 
   } catch (error: any) {
-    return next(new AppError(error.message, BAD_REQUEST));
+    next(new AppError(error.message, BAD_REQUEST));
   }
 };
 

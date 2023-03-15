@@ -117,3 +117,15 @@ export const logout = async (req: Request, res: Response, next: NextFunction) =>
     return next(new AppError(e, BAD_REQUEST));
   }
 };
+
+export const cookie = async (req: Request, res: Response, next: NextFunction) => {
+
+  try {
+    const token = req.cookies['refreshToken'];
+
+    return token
+
+  } catch (e: any) {
+    return next(new AppError(e, BAD_REQUEST));
+  }
+};

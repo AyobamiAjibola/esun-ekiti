@@ -67,6 +67,7 @@ const fetch_oba = async (req: Request, res: Response, next: NextFunction) => {
     const resource = await councilServices.fetchObas(next, req);
     const info = resource?.result;
     const bio = resource?.array
+
     return res.status(OK).json({
       status: "success",
       message: "Fetch successful",

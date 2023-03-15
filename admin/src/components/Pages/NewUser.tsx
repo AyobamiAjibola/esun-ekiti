@@ -55,6 +55,7 @@ export default function NewUser () {
   const onSubmitAdmin: SubmitHandler<Inputs> = async (data: any) => {
     try {
       setValues({ ...values, isLoading: true })
+
       const formData = new FormData();
       formData.append("fullName", data.fullName.toLowerCase());
       formData.append("phone_num", data.phone_num);
@@ -62,7 +63,7 @@ export default function NewUser () {
       formData.append("confirm_password", data.confirm_password);
       formData.append("unique", data.unique);
       formData.append("user_type", role);
-
+      console.log(formData)
       const res = await axios.post("user/register_admin", formData);
 
         if (res.data.errors) { //eslint-disable-line
@@ -244,9 +245,9 @@ export default function NewUser () {
                 }}
               >
                 <FormControl sx={{ width: '100%' }} variant="filled">
-                  <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
+                  <InputLabel htmlFor="filled-adornment-pass">Password</InputLabel>
                   <FilledInput
-                    id="filled-adornment-password"
+                    id="filled-adornment-pass"
                     type={showPassword ? 'text' : 'password'}
                     {...register("password", {
                       required: 'Password is required',

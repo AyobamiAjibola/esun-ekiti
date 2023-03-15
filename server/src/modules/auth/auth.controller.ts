@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { BAD_REQUEST, OK } from "../../constants/response-codes";
 import AppError from "../../utils/appError";
-import { adminLogin, logout, refreshToks } from "./auth.services";
+import { adminLogin, cookie, logout, refreshToks } from "./auth.services";
 import * as authValidator from "./auth.validator";
 
 //= ============================== ADMIN ===============================//
@@ -20,6 +20,7 @@ const login_admin = async (req: Request, res: Response, next: NextFunction) => {
       message: "Login was successful.",
       token
     });
+
   } catch (error: any) {
     return next(new AppError(error.message, BAD_REQUEST));
   }
@@ -52,8 +53,24 @@ const logout_user = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const get_cookie = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+
+    const cookies = await cookie(req, res, next)
+
+    res.status(200).json({
+      error: false,
+      cookies
+    });
+
+  } catch (error: any) {
+    return next(new AppError(error.message, BAD_REQUEST));
+  }
+};
+
 export default {
   login_admin,
   new_access_token,
-  logout_user
+  logout_user,
+  get_cookie
 };
