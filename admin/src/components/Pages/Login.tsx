@@ -1,6 +1,6 @@
 import { Box, Checkbox, FilledInput, FormControl, FormControlLabel, FormGroup, IconButton, InputAdornment, InputLabel, TextField, Typography } from "@mui/material";
 import axios from '../../interceptors/axios_api';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { loginValues, phonePattern, passwordPattern } from "../utils/helpers";
 import useAuth from '../hooks/useAuth';
@@ -58,8 +58,8 @@ export default function Login () {
 
       navigate("/council");
     } catch (err: any) { // eslint-disable-line
-      err.response.data.status === 'fail' && setIsError(err.response.data?.message);
-      console.log(err.response)
+      err.response.data.status === 'fail' && setIsError(err.response.data.message);
+      console.log(err.response.data.status)
       setIsLoading(false)
     }
   };
@@ -219,29 +219,30 @@ export default function Login () {
               />
             </FormGroup>
           </div>
-          <LoadingButton
-            type="submit"
-            onClick={handleSubmit(onSubmit)} // eslint-disable-line
-            loading={isLoading}
-            loadingIndicator="Logging In..."
-            sx={{
-              mt: 4,
-              backgroundColor: '#521414',
-              color: 'white',
-              padding: '10px 10px',
-              mb: '20px',
-              width: '100%',
-              fontWeight: 600,
-              boxShadow: 3,
-              '&:hover': {
-                backgroundColor: 'white',
-                color: '#521414',
-                border: '#fff solid 2px'
-              }
-            }}
-          >
-            Sign In
-          </LoadingButton>
+            <LoadingButton
+              type="submit"
+              onClick={handleSubmit(onSubmit)} // eslint-disable-line
+              loading={isLoading}
+              loadingIndicator="Logging In..."
+              sx={{
+                mt: 4,
+                backgroundColor: '#521414',
+                color: 'white',
+                padding: '10px 10px',
+                mb: '20px',
+                width: '100%',
+                fontWeight: 600,
+                boxShadow: 3,
+                '&:hover': {
+                  backgroundColor: 'white',
+                  color: '#521414',
+                  border: '#fff solid 2px'
+                }
+              }}
+            >
+              Sign In
+            </LoadingButton>
+            <Link to='/register'>register</Link>
           <Box
             sx={{
               display: 'flex',

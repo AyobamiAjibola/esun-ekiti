@@ -97,8 +97,11 @@ export default function NewUser () {
             sx={{
               display: 'flex',
               flexDirection: 'column',
+              p: 4,
               height: 'auto',
-              width: { lg: '30%', md: '40%', sm: '50%', xs: '90%' }
+              width: { lg: '40%', sm: '50%', xs: '90%' },
+              boxShadow: 5,
+              borderRadius: "10px"
             }}
             component='form'
           >
@@ -267,7 +270,7 @@ export default function NewUser () {
                           onMouseDown={handleMouseDownPassword}
                           edge="end"
                         >
-                          {showPassword ? <VisibilityOff sx={{ fontSize: { sm: '25px', xs: '20px' } }} /> : <Visibility sx={{ fontSize: { sm: '25px', xs: '20px' } }} />}
+                          {showPassword ? <VisibilityOff sx={{ fontSize: { sm: '18px', xs: '15px' } }} /> : <Visibility sx={{ fontSize: { sm: '18px', xs: '15px' } }} />}
                         </IconButton>
                       </InputAdornment>
                     }
@@ -316,7 +319,7 @@ export default function NewUser () {
                           onMouseDown={handleMouseDownPassword}
                           edge="end"
                         >
-                          {showPassword ? <VisibilityOff sx={{ fontSize: { sm: '25px', xs: '20px' } }} /> : <Visibility sx={{ fontSize: { sm: '25px', xs: '20px' } }} />}
+                          {showPassword ? <VisibilityOff sx={{ fontSize: { sm: '18px', xs: '15px' } }} /> : <Visibility sx={{ fontSize: { sm: '18px', xs: '15px' } }} />}
                         </IconButton>
                       </InputAdornment>
                     }

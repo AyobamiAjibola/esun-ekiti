@@ -15,11 +15,11 @@ const login_admin = async (req: Request, res: Response, next: NextFunction) => {
     const fetch = await adminLogin(res, req.body, next);
     const token = fetch?.token;
 
-      res.status(OK).json({
-        status: "success",
-        message: "Login was successful.",
-        token
-      });
+    res.status(OK).json({
+      status: "success",
+      message: "Login was successful.",
+      token
+    });
   } catch (error: any) {
     return next(new AppError(error.message, BAD_REQUEST));
   }
