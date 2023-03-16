@@ -17,14 +17,14 @@ const register_admin = async (req: Request, res: Response, next: NextFunction) =
 
     const newAdminUser = await usersServices.adminReg(req.body, next, req, res);
 
-    return res.status(RESOURCE_CREATED).json({
+    res.status(RESOURCE_CREATED).json({
       status: "success",
       message: "User created successfully",
       data: { newAdminUser },
     });
 
   } catch (error: any) {
-    next(new AppError(error.message, BAD_REQUEST));
+    return next(new AppError(error.message, BAD_REQUEST));
   }
 };
 

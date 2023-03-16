@@ -15,7 +15,9 @@
     "create:dbprod": "npx sequelize-cli db:create --config build/sequelize/config/config.js",
     "migrate": "cross-env NODE_ENV=test npx sequelize-cli db:migrate --config src/sequelize/config/config.js",
     "migrate:prod": "npx sequelize-cli db:migrate --config build/sequelize/config/config.js",
-    "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate src/sequelize/config/config.js"
+    "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate src/sequelize/config/config.js",
+    "seed": "npx sequelize-cli db:seed:all --config src/sequelize/config/config.js",
+    "seed:prod": "npx sequelize-cli db:seed:all --config build/sequelize/config/config.js"
   },
   "repository": {
     "type": "git",

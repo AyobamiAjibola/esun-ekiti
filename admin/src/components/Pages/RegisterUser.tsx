@@ -378,7 +378,7 @@ function NewUser ({ setUpdate, axiosPrivate, newUserPage, setNewUserPage, setSta
       formData.append("confirm_password", data.confirm_password);
       formData.append("unique", data.unique);
       formData.append("user_type", role);
-
+      console.log(formData)
       const res = await axiosPrivate.post("user/register_admin", formData);
 
       if (res.data.errors) { //eslint-disable-line
