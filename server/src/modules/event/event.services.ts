@@ -154,7 +154,7 @@ export const fetchEvents = async (next: NextFunction, req: Request) => {
       return data.filter((item: any) => keys.some((key) => item[key].toLowerCase().includes(q)));
     };
 
-    const evt = await db.Event.findAll({
+    const evt = await Event?.findAll({
       where: {isEvent: "active"},
       order: [["createdAt", "ASC"]],
     });
