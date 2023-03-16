@@ -42,7 +42,7 @@ export default function Login () {
       const phone_num = data.phone_num; // eslint-disable-line
       const password = data.password;
       console.log(data, "first")
-      const { data: login } = await axios.post(`${process.env.REACT_APP_BASE_URL}auth/login_admin`, {
+      const { data: login } = await axios.post('https://esun-server-api.onrender.com/auth/login_admin', {
         phone_num,
         password
       },
@@ -243,7 +243,6 @@ export default function Login () {
             >
               Sign In
             </LoadingButton>
-            <Link to='/register'>register</Link>
           <Box
             sx={{
               display: 'flex',
