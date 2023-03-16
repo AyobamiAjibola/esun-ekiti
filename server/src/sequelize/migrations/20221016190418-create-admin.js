@@ -25,7 +25,7 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      confirmPassword: {
+      confirm_password: {
         type: Sequelize.STRING
       },
       createdAt: {
