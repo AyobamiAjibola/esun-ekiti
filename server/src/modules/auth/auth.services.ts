@@ -19,7 +19,7 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
     const { phone_num, password } = body;
 
     const user = await Admin?.findOne({ where: { phone_num } }, { transaction });
-
+    console.log(user)
     if (!user || user === null) {
       return next(new AppError("Invalid phone number or password", BAD_REQUEST));
     }
