@@ -9,6 +9,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 300,
+  height: 200,
   bgcolor: 'transparent',
   borderRadius: '10px',
   outline: 'none',
@@ -34,9 +35,12 @@ const Loader = () => {
                 <Box sx={style}>
                     <Box
                         sx={{
-                          marginBottom: '30px',
+                          // marginBottom: '30px',
                           width: '100%',
-                          height: '100%'
+                          height: '100%',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center'
                         }}
                     >
                         <Spinner/>

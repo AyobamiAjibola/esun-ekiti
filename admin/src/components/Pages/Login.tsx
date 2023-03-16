@@ -40,7 +40,7 @@ export default function Login () {
       setIsLoading(true)
       const phone_num = data.phone_num; // eslint-disable-line
       const password = data.password;
-
+      console.log(data, "first")
       const { data: login } = await axios.post("auth/login_admin", {
         phone_num,
         password
@@ -49,7 +49,7 @@ export default function Login () {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true
       });
-
+      console.log(login, "second")
       setIsLoading(false)
 
       const access = login.token;
