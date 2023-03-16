@@ -162,7 +162,7 @@ export const fetchEvents = async (next: NextFunction, req: Request) => {
     const result = q ? search(evt) : evt;
     const array: any = [];
 
-    result.map((value: any) => {
+    result?.map((value: any) => {
       function limit (string = '', limit = 0) {
         return string.substring(0, limit)
       }
