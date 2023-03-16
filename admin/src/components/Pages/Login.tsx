@@ -1,5 +1,5 @@
 import { Box, Checkbox, FilledInput, FormControl, FormControlLabel, FormGroup, IconButton, InputAdornment, InputLabel, TextField, Typography } from "@mui/material";
-import axios from '../../interceptors/axios_api';
+// import axios from '../../interceptors/axios_api';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { loginValues, phonePattern, passwordPattern } from "../utils/helpers";
@@ -9,6 +9,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useLayoutEffect, useState } from 'react';
 import { LoadingButton } from "@mui/lab";
 import SnackBar from "../utils/SnackBar";
+import axios from "axios";
 
 interface Inputs {
   phone_num: string
