@@ -1,10 +1,10 @@
 import { NextFunction, Request } from "express";
 import fs from "fs";
 import { resolve } from "path";
-import db from "../../sequelize/models";
 import { BAD_REQUEST, FORBIDDEN } from "../../constants/response-codes";
 import AppError from "../../utils/appError";
 import { getPagination, getPagingData } from "../../helpers/Pagination";
+const db = require('../../sequelize/models').default;
 
 
 const { sequelize } = db;

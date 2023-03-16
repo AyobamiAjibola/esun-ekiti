@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { jwtGenerator } from "../../utils/jwtGenerator";
-import db from "../../sequelize/models";
 import { BAD_REQUEST, RESOURCE_CREATED } from "../../constants/response-codes";
 import AppError from "../../utils/appError";
 import { UserType } from "./user.types";
 import { hash } from "../../utils/auth";
+const db = require('../../sequelize/models').default;
 
 const { Admin } = db;
 const { sequelize } = db;

@@ -2,11 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import { AuthType } from "./auth.types";
 import { jwtGenerator } from "../../utils/jwtGenerator";
 import JWT from "jsonwebtoken";
-import db from "../../sequelize/models";
 import { BAD_REQUEST } from "../../constants/response-codes";
 import AppError from "../../utils/appError";
 import { verifyBcryptPassword } from "../../utils/auth";
 import { verifyRefreshToken } from "../../utils/verifyRefreshToken";
+const db = require('../../sequelize/models').default;
 
 const { Admin } = db;
 const { sequelize } = db;

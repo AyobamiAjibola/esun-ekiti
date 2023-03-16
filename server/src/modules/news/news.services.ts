@@ -1,12 +1,12 @@
 import { NextFunction, Request } from "express";
 import fs from "fs";
 import { resolve } from "path";
-import db from "../../sequelize/models";
 import { BAD_REQUEST } from "../../constants/response-codes";
 import AppError from "../../utils/appError";
 import { NewsType } from "./news.types";
 import { Op, Sequelize } from "sequelize";
 import { getPagination, getPagingData } from "../../helpers/Pagination";
+const db = require('../../sequelize/models').default;
 
 const { sequelize } = db;
 const { News } = db;

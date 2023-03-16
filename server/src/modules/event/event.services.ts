@@ -1,5 +1,4 @@
 import { NextFunction, Request } from "express";
-import db from "../../sequelize/models";
 import { BAD_REQUEST } from "../../constants/response-codes";
 import AppError from "../../utils/appError";
 import fs from "fs";
@@ -7,6 +6,7 @@ import { resolve } from "path";
 import { EventType } from "./event.types";
 import { Op, Sequelize } from "sequelize";
 import { getPagination, getPagingData } from "../../helpers/Pagination";
+const db = require('../../sequelize/models').default;
 
 const { sequelize } = db;
 const { Event } = db;

@@ -1,11 +1,11 @@
 import { NextFunction, Request } from "express";
 import fs from "fs";
 import { resolve } from "path";
-import db from "../../sequelize/models";
 import { BAD_REQUEST, FORBIDDEN, OK } from "../../constants/response-codes";
 import AppError from "../../utils/appError";
 import { HistoryType } from "./history.types";
 import { Op, Sequelize } from "sequelize";
+const db = require('../../sequelize/models').default;
 
 const { sequelize } = db;
 const { History } = db;
