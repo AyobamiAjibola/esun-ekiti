@@ -6,7 +6,7 @@ import { resolve } from "path";
 import { EventType } from "./event.types";
 import { Op, Sequelize } from "sequelize";
 import { getPagination, getPagingData } from "../../helpers/Pagination";
-const db = require('../../sequelize/models').default;
+const db = require('../../sequelize/models');
 
 const { sequelize } = db;
 const { Event } = db;
@@ -154,7 +154,7 @@ export const fetchEvents = async (next: NextFunction, req: Request) => {
       return data.filter((item: any) => keys.some((key) => item[key].toLowerCase().includes(q)));
     };
 
-    const evt = await Event?.findAll({
+    const evt = await Event.findAll({
       where: {isEvent: "active"},
       order: [["createdAt", "ASC"]],
     });
