@@ -9,11 +9,10 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 300,
-  height: 200,
+  height: 300,
   bgcolor: 'transparent',
   borderRadius: '10px',
-  outline: 'none',
-  p: 4
+  outline: 'none'
 }
 const Loader = () => {
   const [open, setOpen] = useState(false)
@@ -35,7 +34,6 @@ const Loader = () => {
                 <Box sx={style}>
                     <Box
                         sx={{
-                          // marginBottom: '30px',
                           width: '100%',
                           height: '100%',
                           display: 'flex',
