@@ -18,7 +18,7 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
     transaction = await sequelize.transaction();
     const { phone_num, password } = body;
 
-    const user = await Admin.findOne({ where: { phone_num } }, { transaction });
+    const user = await Admin?.findOne({ where: { phone_num } }, { transaction });
 
     if (!user || user === null) {
       return next(new AppError("Invalid phone number or password", BAD_REQUEST));
@@ -68,33 +68,6 @@ export const refreshToks = async (req: Request, res: Response, next: NextFunctio
       { expiresIn: process.env.JWT_ACCESS_TOKEN_TIME_LIMIT }
     );
     res.status(200).json({ token });
-    // const cookies = req.cookies;
-    // if (!cookies?.refreshToken) return res.sendStatus(401);
-    // const refToken = cookies.refreshToken;
-
-    // const foundUser = await UserToken.findOne({ where: {token: refToken} });
-    // const fetchUser = await Admin.findOne({where: { id: foundUser.dataValues.UserId }});
-
-    // if (!fetchUser) return next(new AppError("No such user in db", FORBIDDEN));
-
-    // JWT.verify(
-		// 	refToken,
-		// 	process.env.REFRESH_TOKEN_PUBLIC_KEY as any,
-		// 	(err: any, decoded: any) => {
-		// 		if (err || fetchUser.dataValues.phone_num !== decoded.UserInfo.phone_num) return next(new AppError("Invalid", FORBIDDEN));
-    //         const token = JWT.sign(
-    //             {
-    //                 "UserInfo": {
-    //                     "phone_num": decoded?.phone_num,
-    //                     "role": decoded?.user_type
-    //                 }
-    //             },
-    //             `${process.env.ACCESS_TOKEN_PRIVATE_KEY}`,
-    //             { expiresIn: process.env.JWT_ACCESS_TOKEN_TIME_LIMIT }
-    //         );
-    //         res.json({ token })
-		// 	}
-		// )
   } catch (e: any) {
     return next(new AppError(e, BAD_REQUEST));
   }
@@ -106,7 +79,7 @@ export const logout = async (req: Request, res: Response, next: NextFunction) =>
     const token = req.cookies['refreshToken'];
 
     if(token){
-      await UserToken.destroy({ where: {token: token }});
+      await UserToken?.destroy({ where: {token: token }});
       res.cookie('refreshToken', '', {
         httpOnly: true,
         maxAge: 0

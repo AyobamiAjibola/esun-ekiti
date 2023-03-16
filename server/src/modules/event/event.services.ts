@@ -18,12 +18,12 @@ export const newEvent = async (body: EventType, next: NextFunction) => {
     transaction = await sequelize.transaction();
     const { name, detail } = body;
 
-    const evt = await Event.findOne({ where: { name } }, { transaction });
+    const evt = await Event?.findOne({ where: { name } }, { transaction });
     if (evt) {
       return next(new AppError("This event already exist", BAD_REQUEST));
     }
 
-    const create_event = await Event.create({
+    const create_event = await Event?.create({
       name,
       detail
     });
@@ -44,14 +44,14 @@ export const updEvent = async (body: EventType, next: NextFunction, req: Request
     transaction = await sequelize.transaction();
     const { name, detail } = body;
 
-    const evt = await Event.findOne({ where: { name } }, { transaction });
-    const fetch = await Event.findOne({ where: { name: req.params.id } }, { transaction });
+    const evt = await Event?.findOne({ where: { name } }, { transaction });
+    const fetch = await Event?.findOne({ where: { name: req.params.id } }, { transaction });
     if (evt) {
       if(evt && evt.dataValues.name !== fetch.dataValues.name)
       return next(new AppError("Event name already in use", BAD_REQUEST));
     }
 
-    const upd = await Event.update(
+    const upd = await Event?.update(
       {
         name,
         detail
@@ -85,7 +85,7 @@ export const updEventImg = async (next: NextFunction, req: Request) => {
       });
 
       const main_img = new_image.toString();
-      await Event.update(
+      await Event?.update(
         { image: Sequelize.fn("array_append", Sequelize.col("image"), main_img) },
         { where: { name: req.params.id } },
         { transaction }
@@ -103,7 +103,7 @@ export const updEventImg = async (next: NextFunction, req: Request) => {
 
 export const readSingleEvent = async (next: NextFunction, req: Request) => {
   try {
-    const single_event = await Event.findOne({ where: { name: req.params.id } });
+    const single_event = await Event?.findOne({ where: { name: req.params.id } });
     return single_event;
   } catch (e: any) {
     return next(new AppError(e, BAD_REQUEST));
@@ -115,7 +115,7 @@ export const fetchEventClient = async (next: NextFunction, req: Request) => {
     const { page, size } = req.query;
 
     const { limit, offset } = getPagination(page, size);
-    const evt = await Event.findAndCountAll({
+    const evt = await Event?.findAndCountAll({
       where: { isEvent: "active" },
       limit,
       offset,
@@ -125,7 +125,7 @@ export const fetchEventClient = async (next: NextFunction, req: Request) => {
     });
     const result = getPagingData(evt, page, limit);
     const array: any = [];
-    result?.result.map((value: any) => {
+    result?.result?.map((value: any) => {
       function limit (string = '', limit = 0) {
         return string.substring(0, limit)
       }
@@ -154,7 +154,7 @@ export const fetchEvents = async (next: NextFunction, req: Request) => {
       return data.filter((item: any) => keys.some((key) => item[key].toLowerCase().includes(q)));
     };
 
-    const evt = await Event && Event.findAll({
+    const evt = await Event?.findAll({
       where: {isEvent: "active"},
       order: [["createdAt", "ASC"]],
     });
@@ -190,7 +190,7 @@ export const delEvent = async (next: NextFunction, req: Request) => {
   try {
     transaction = await sequelize.transaction();
 
-    const fetch = await Event.findOne({ where: { name: req.params.id } }, { transaction });
+    const fetch = await Event?.findOne({ where: { name: req.params.id } }, { transaction });
     const img = fs.readdirSync(resolve(__dirname, "../../../uploads"));
     img.map((value) => {
       if(fetch.dataValues.image !== null){
@@ -200,7 +200,7 @@ export const delEvent = async (next: NextFunction, req: Request) => {
       }
     });
 
-    await Event.destroy({ where: { name: req.params.id } });
+    await Event?.destroy({ where: { name: req.params.id } });
     await transaction.commit();
   } catch (e: any) {
     if (transaction) {
@@ -217,7 +217,7 @@ export const delete_single_image = async (req: Request, next: NextFunction) => {
     transaction = await sequelize.transaction();
     const rmv = req.params.id; // front end will give me the name of the image
 
-    await Event.update(
+    await Event?.update(
       { image: Sequelize.fn("array_remove", Sequelize.col("image"), rmv) },
       { where: { isEvent: 'active' } },
       { transaction }

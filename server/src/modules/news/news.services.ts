@@ -20,7 +20,7 @@ export const newNews = async (body: NewsType, next: NextFunction, req: Request) 
     // const filenames = req.files! as Array<Express.Multer.File>;
     // const image = filenames.map((file) => file.filename);
 
-    const create_news = await News.create({
+    const create_news = await News?.create({
       ...req.body
     });
     await transaction.commit();
@@ -40,7 +40,7 @@ export const updNews = async (body: NewsType, next: NextFunction, req: Request) 
   try {
     transaction = await sequelize.transaction();
 
-    const upd_news = await News.update(
+    const upd_news = await News?.update(
       {
         ...req.body
       },
@@ -74,7 +74,7 @@ export const updNewsImg = async (body: NewsType, next: NextFunction, req: Reques
       });
 
       const main_img = new_image.toString();
-      await News.update(
+      await News?.update(
         { image: Sequelize.fn("array_append", Sequelize.col("image"), main_img) },
         { where: { id: req.params.id } },
         { transaction }
@@ -92,7 +92,7 @@ export const updNewsImg = async (body: NewsType, next: NextFunction, req: Reques
 
 export const readSingleNews = async (next: NextFunction, req: Request) => {
   try {
-    const single_news = await News.findOne({ where: { id: req.params.id } });
+    const single_news = await News?.findOne({ where: { id: req.params.id } });
     return single_news;
   } catch (e: any) {
     return next(new AppError(e, BAD_REQUEST));
@@ -104,7 +104,7 @@ export const fetchNewsActive = async (next: NextFunction, req: Request) => {
     const { page, size } = req.query;
 
     const { limit, offset } = getPagination(page, size);
-    const news = await News.findAndCountAll({
+    const news = await News?.findAndCountAll({
       where: { status: "active" },
       limit,
       offset,
@@ -140,7 +140,7 @@ export const fetchNewsActive = async (next: NextFunction, req: Request) => {
 export const fetchNewsLimit = async (next: NextFunction, req: Request) => {
   try {
 
-    const news = await News.findAll(
+    const news = await News?.findAll(
       { where: { status: "active" } },
       {
         order: [["createdAt"]],
@@ -149,7 +149,7 @@ export const fetchNewsLimit = async (next: NextFunction, req: Request) => {
 
     const array: any = [];
 
-    news.map((value: any) => {
+    news?.map((value: any) => {
       function limit (string = '', limit = 0) {
         return string.substring(0, limit)
       }
@@ -180,7 +180,7 @@ export const fetchNewsAll = async (next: NextFunction, req: Request) => {
     const search = (data: any) => {
       return data.filter((item: any) => keys.some((key) => item[key].toLowerCase().includes(q)));
     };
-    const biz = await News.findAll({
+    const biz = await News?.findAll({
         where: {
           status: {
             [Op.or]: ["pending", "active"]
@@ -194,7 +194,7 @@ export const fetchNewsAll = async (next: NextFunction, req: Request) => {
 
     const array: any = [];
 
-    result.map((value: any) => {
+    result?.map((value: any) => {
       function limit (string = '', limit = 0) {
         return string.substring(0, limit)
       }
@@ -222,7 +222,7 @@ export const delNews = async (next: NextFunction, req: Request) => {
   try {
     transaction = await sequelize.transaction();
 
-    const fetch = await News.findOne({ where: { id: req.params.id } }, { transaction });
+    const fetch = await News?.findOne({ where: { id: req.params.id } }, { transaction });
     const img = fs.readdirSync(resolve(__dirname, "../../../uploads"));
     img.map((value) => {
       if(fetch.dataValues.image !== null){
@@ -232,7 +232,7 @@ export const delNews = async (next: NextFunction, req: Request) => {
       }
     });
 
-    await News.destroy({ where: { id: req.params.id } });
+    await News?.destroy({ where: { id: req.params.id } });
     await transaction.commit();
   } catch (e: any) {
     if (transaction) {
@@ -249,7 +249,7 @@ export const delete_single_image = async (req: Request) => {
     transaction = await sequelize.transaction();
     const rmv = req.params.id; // front end will give me the name of the image
 
-    await News.update(
+    await News?.update(
       { image: Sequelize.fn("array_remove", Sequelize.col("image"), rmv) },
       // { where: { id: req.params.id } },
       { where: {
@@ -284,9 +284,9 @@ export const updValid = async (next: NextFunction, req: Request) => {
     const activate = "active";
     const deactivate = "pending";
 
-    const fetch = await News.findByPk(req.params.id)
+    const fetch = await News?.findByPk(req.params.id)
     if(fetch.dataValues.status === 'pending'){
-      await News.update(
+      await News?.update(
         {
           status: activate,
         },
@@ -294,7 +294,7 @@ export const updValid = async (next: NextFunction, req: Request) => {
         { transaction }
       );
     } else {
-      await News.update(
+      await News?.update(
         {
           status: deactivate,
         },

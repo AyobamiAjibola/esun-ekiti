@@ -17,7 +17,7 @@ export const newProject = async (body: ProjectType, next: NextFunction, req: Req
   try {
     transaction = await sequelize.transaction();
 
-    const new_project = await Project.create({
+    const new_project = await Project?.create({
       ...req.body
     });
     await transaction.commit();
@@ -37,7 +37,7 @@ export const updProject = async (body: ProjectType, next: NextFunction, req: Req
   try {
     transaction = await sequelize.transaction();
 
-    const upd_project = await Project.update(
+    const upd_project = await Project?.update(
       {
         ...req.body
       },
@@ -71,7 +71,7 @@ export const updProjectImg = async (body: ProjectType, next: NextFunction, req: 
       });
 
       const main_img = new_image.toString();
-      await Project.update(
+      await Project?.update(
         { image: Sequelize.fn("array_append", Sequelize.col("image"), main_img) },
         { where: { id: req.params.id } },
         { transaction }
@@ -89,7 +89,7 @@ export const updProjectImg = async (body: ProjectType, next: NextFunction, req: 
 
 export const readSingleProject = async (next: NextFunction, req: Request) => {
   try {
-    const single_project = await Project.findOne({ where: { id: req.params.id } });
+    const single_project = await Project?.findOne({ where: { id: req.params.id } });
     return single_project;
   } catch (e: any) {
     return next(new AppError(e, BAD_REQUEST));
@@ -106,7 +106,7 @@ export const fetchProject = async (next: NextFunction, req: Request) => {
         item[key].toLowerCase().includes(q)
       })});
     };
-    const biz = await Project.findAll({
+    const biz = await Project?.findAll({
       where: {isProject: "active"},
       limit: 5,
       order: [["createdAt"]],
@@ -115,7 +115,7 @@ export const fetchProject = async (next: NextFunction, req: Request) => {
     const result = q ? search(biz) : biz;
     const array: any = [];
 
-    result.map((value: any) => {
+    result?.map((value: any) => {
       function limit (string = '', limit = 0) {
         return string.substring(0, limit)
       }
@@ -141,7 +141,7 @@ export const fetchProjectClient = async (next: NextFunction, req: Request) => {
     const { page, size } = req.query;
 
     const { limit, offset } = getPagination(page, size);
-    const news = await Project.findAndCountAll({
+    const news = await Project?.findAndCountAll({
       where: { isProject: "active" },
       limit,
       offset,
@@ -174,7 +174,7 @@ export const fetchProjectClient = async (next: NextFunction, req: Request) => {
 
 export const fetchProjectLimit = async (next: NextFunction, req: Request) => {
   try {
-    const project = await Project.findAll(
+    const project = await Project?.findAll(
       {where: {isProject: "active"}},
       {
         order: [["createdAt", "ASC"]]
@@ -183,7 +183,7 @@ export const fetchProjectLimit = async (next: NextFunction, req: Request) => {
 
     const array: any = [];
 
-    project.map((value: any) => {
+    project?.map((value: any) => {
       function limit (string = '', limit = 0) {
         return string.substring(0, limit)
       }
@@ -214,7 +214,7 @@ export const delProject = async (next: NextFunction, req: Request) => {
   try {
     transaction = await sequelize.transaction();
 
-    const fetch = await Project.findOne({ where: { id: req.params.id } }, { transaction });
+    const fetch = await Project?.findOne({ where: { id: req.params.id } }, { transaction });
     const img = fs.readdirSync(resolve(__dirname, "../../../uploads"));
     img.map((value) => {
       if(fetch.dataValues.image !== null){
@@ -224,7 +224,7 @@ export const delProject = async (next: NextFunction, req: Request) => {
       }
     });
 
-    const del = await Project.destroy({ where: { id: req.params.id } });
+    const del = await Project?.destroy({ where: { id: req.params.id } });
     await transaction.commit();
     return del;
   } catch (e: any) {
@@ -242,7 +242,7 @@ export const delete_single_image = async (req: Request) => {
     transaction = await sequelize.transaction();
     const rmv = req.params.id;
 
-    await Project.update(
+    await Project?.update(
       { image: Sequelize.fn("array_remove", Sequelize.col("image"), rmv) },
       { where: { isProject: "active" } },
       { transaction }

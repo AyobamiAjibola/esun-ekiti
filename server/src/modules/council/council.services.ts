@@ -20,11 +20,11 @@ export const newOba = async (next: NextFunction, req: Request) => {
   try {
     transaction = await sequelize.transaction();
 
-    const fetch = await Oba.findOne({where: {oba: 'elesun'}});
+    const fetch = await Oba?.findOne({where: {oba: 'elesun'}});
     if(fetch) return next(new AppError("An Oba already exist", FORBIDDEN))
 
     const image = req.file ? req.file.filename : "";
-    const new_oba = await Oba.create({
+    const new_oba = await Oba?.create({
       ...req.body,
       image
     });
@@ -48,7 +48,7 @@ export const updOba = async (next: NextFunction, req: Request) => {
     const image = req.file && req.file.filename;
 
     if (image) {
-      const fetch = await Oba.findOne({ where: { oba: "elesun" } }, { transaction });
+      const fetch = await Oba?.findOne({ where: { oba: "elesun" } }, { transaction });
       const img = fs.readdirSync(resolve(__dirname, "../../../uploads"));
       img.map((value) => {
         if (fetch.dataValues.image.includes(value)) {
@@ -56,7 +56,7 @@ export const updOba = async (next: NextFunction, req: Request) => {
         }
       });
     }
-    const new_oba = await Oba.update(
+    const new_oba = await Oba?.update(
       {
         ...req.body,
         image,
@@ -77,7 +77,7 @@ export const updOba = async (next: NextFunction, req: Request) => {
 
 export const readSingleOba = async (next: NextFunction, req: Request) => {
   try {
-    const single_oba = await Oba.findOne({ where: { id: req.params.id } });
+    const single_oba = await Oba?.findOne({ where: { id: req.params.id } });
     return single_oba;
   } catch (e: any) {
     return next(new AppError(e, BAD_REQUEST));
@@ -86,7 +86,7 @@ export const readSingleOba = async (next: NextFunction, req: Request) => {
 
 export const fetchObas = async (next: NextFunction, req: Request) => {
   try {
-    const result = await Oba.findOne({ where: { oba: 'elesun' } });
+    const result = await Oba?.findOne({ where: { oba: 'elesun' } });
 
       function limit (string = '', limit = 0) {
         return string.substring(0, limit)
@@ -106,7 +106,7 @@ export const delOba = async (next: NextFunction, req: Request) => {
   try {
     transaction = await sequelize.transaction();
 
-    const fetch = await Oba.findOne({ where: { oba: 'elesun' } }, { transaction });
+    const fetch = await Oba?.findOne({ where: { oba: 'elesun' } }, { transaction });
     const img = fs.readdirSync(resolve(__dirname, "../../../uploads"));
     img.map((value) => {
       if(fetch.dataValues.image !== null){
@@ -116,15 +116,15 @@ export const delOba = async (next: NextFunction, req: Request) => {
       }
     });
 
-    const fetchOlori = await Olori.findOne({ where: { olori: 'elesun' } }, { transaction });
+    const fetchOlori = await Olori?.findOne({ where: { olori: 'elesun' } }, { transaction });
     const photo = fs.readdirSync(resolve(__dirname, "../../../uploads"));
     fetchOlori && photo.map((value) => {
-      if (fetchOlori.dataValues.image.includes(value)) {
+      if (fetchOlori?.dataValues.image.includes(value)) {
         fs.unlinkSync(resolve(__dirname, `../../../uploads/${value}`));
       }
     });
-    await Oba.destroy({ where: { oba: 'elesun' } }, { transaction });
-    await Olori.destroy({ where: { olori: 'elesun' } }, { transaction });
+    await Oba?.destroy({ where: { oba: 'elesun' } }, { transaction });
+    await Olori?.destroy({ where: { olori: 'elesun' } }, { transaction });
     await transaction.commit();
   } catch (e: any) {
     if (transaction) {
@@ -141,14 +141,14 @@ export const newOlori = async (next: NextFunction, req: Request) => {
   try {
     transaction = await sequelize.transaction();
 
-    const fetchOba = await Oba.findOne({where: {oba: 'elesun'}});
+    const fetchOba = await Oba?.findOne({where: {oba: 'elesun'}});
     if(!fetchOba) return next(new AppError("Oba record not found. Create oba record", FORBIDDEN))
 
-    const fetch = await Olori.findOne({where: {olori: 'elesun'}});
+    const fetch = await Olori?.findOne({where: {olori: 'elesun'}});
     if(fetch) return next(new AppError("An Olori already exist", FORBIDDEN))
 
     const image = req.file ? req.file.filename : "";
-    const new_olori = await Olori.create({
+    const new_olori = await Olori?.create({
       ...req.body,
       image,
     });
@@ -172,7 +172,7 @@ export const updOlori = async (next: NextFunction, req: Request) => {
     const image = req.file && req.file.filename;
 
     if (image) {
-      const fetch = await Olori.findOne({ where: { olori: "elesun" } }, { transaction });
+      const fetch = await Olori?.findOne({ where: { olori: "elesun" } }, { transaction });
       const img = fs.readdirSync(resolve(__dirname, "../../../uploads"));
       img.map((value) => {
         if (fetch.dataValues.image.includes(value)) {
@@ -180,7 +180,7 @@ export const updOlori = async (next: NextFunction, req: Request) => {
         }
       });
     }
-    const new_olori = await Olori.update(
+    const new_olori = await Olori?.update(
       {
         ...req.body,
         image,
@@ -201,7 +201,7 @@ export const updOlori = async (next: NextFunction, req: Request) => {
 
 export const fetchOlori = async (next: NextFunction, req: Request) => {
   try {
-    const biz = await Olori.findOne({ where: { olori: 'elesun' } });
+    const biz = await Olori?.findOne({ where: { olori: 'elesun' } });
 
     const result = biz;
     return result;
@@ -216,7 +216,7 @@ export const delOlori = async (next: NextFunction, req: Request) => {
   try {
     transaction = await sequelize.transaction();
 
-    const fetch = await Olori.findOne({ where: { olori: 'elesun' } }, { transaction });
+    const fetch = await Olori?.findOne({ where: { olori: 'elesun' } }, { transaction });
     const img = fs.readdirSync(resolve(__dirname, "../../../uploads"));
     img.map((value) => {
       if(fetch.dataValues.image !== null){
@@ -225,7 +225,7 @@ export const delOlori = async (next: NextFunction, req: Request) => {
         }
       }
     });
-    await Olori.destroy({ where: { olori: 'elesun' } }, { transaction });
+    await Olori?.destroy({ where: { olori: 'elesun' } }, { transaction });
     await transaction.commit();
   } catch (e: any) {
     if (transaction) {
@@ -243,13 +243,13 @@ export const newChief = async (next: NextFunction, req: Request) => {
     transaction = await sequelize.transaction();
 
     const { title, position } = req.body;
-    const chief = await Chief.findOne({ where: { title } }, { transaction });
+    const chief = await Chief?.findOne({ where: { title } }, { transaction });
 
     if (chief) {
       return next(new AppError("Title already in use", BAD_REQUEST));
     }
 
-    const pos = await Chief.findOne({ where: { position } }, { transaction });
+    const pos = await Chief?.findOne({ where: { position } }, { transaction });
     if (pos) {
       return next(new AppError("A chief with this position already exist", BAD_REQUEST));
     }
@@ -258,7 +258,7 @@ export const newChief = async (next: NextFunction, req: Request) => {
       return next(new AppError("Negative values or zeros are not allowed in position", BAD_REQUEST));
     }
 
-    const new_chief = await Chief.create({
+    const new_chief = await Chief?.create({
       ...req.body
     });
     await transaction.commit();
@@ -279,24 +279,24 @@ export const updChief = async (next: NextFunction, req: Request) => {
     transaction = await sequelize.transaction();
 
     const { title, position } = req.body;
-    const chief = await Chief.findOne({ where: { title } }, { transaction });
-    const fetch = await Chief.findOne({ where: { title: req.params.id } }, { transaction });
+    const chief = await Chief?.findOne({ where: { title } }, { transaction });
+    const fetch = await Chief?.findOne({ where: { title: req.params.id } }, { transaction });
     if (chief) {
-      if(chief && chief.dataValues.title !== fetch.dataValues.title)
+      if(chief && chief?.dataValues.title !== fetch.dataValues.title)
       return next(new AppError("Title already in use", BAD_REQUEST));
     }
 
-    const fetchD = await Chief.findOne({where: {title: req.params.id}}, { transaction });
+    const fetchD = await Chief?.findOne({where: {title: req.params.id}}, { transaction });
     if (title) {
-      const chiefTitle = await Chief.findOne({ where: { title } }, { transaction });
+      const chiefTitle = await Chief?.findOne({ where: { title } }, { transaction });
       if (chiefTitle && chiefTitle.dataValues.title !== fetchD.dataValues.title) {
         return next(new AppError("A chief with this title already exist", BAD_REQUEST));
       }
     }
 
-    const fetchPos = await Chief.findOne({where: {title: req.params.id}}, { transaction });
+    const fetchPos = await Chief?.findOne({where: {title: req.params.id}}, { transaction });
     if (title) {
-      const chiefPos = await Chief.findOne({ where: { position } }, { transaction });
+      const chiefPos = await Chief?.findOne({ where: { position } }, { transaction });
       if (chiefPos && chiefPos.dataValues.position !== fetchPos.dataValues.position) {
         return next(new AppError("A chief with this position already exist", BAD_REQUEST));
       }
@@ -306,7 +306,7 @@ export const updChief = async (next: NextFunction, req: Request) => {
     }
 
 
-    const new_chief = await Chief.update(
+    const new_chief = await Chief?.update(
       {
         ...req.body
       },
@@ -333,7 +333,7 @@ export const updChiefImg = async (next: NextFunction, req: Request) => {
 
     const image = req.file && req.file.filename;
     if (image) {
-      const fetch = await Chief.findOne({ where: { title: req.params.id } }, { transaction });
+      const fetch = await Chief?.findOne({ where: { title: req.params.id } }, { transaction });
       const img = fs.readdirSync(resolve(__dirname, "../../../uploads"));
       img.map((value) => {
         if (fetch.dataValues.image) {
@@ -344,7 +344,7 @@ export const updChiefImg = async (next: NextFunction, req: Request) => {
       });
     }
 
-    const new_chief = await Chief.update(
+    const new_chief = await Chief?.update(
       {
         image
       },
@@ -365,7 +365,7 @@ export const updChiefImg = async (next: NextFunction, req: Request) => {
 
 export const readSingleChief = async (next: NextFunction, req: Request) => {
   try {
-    const single_Chief = await Chief.findOne({ where: { title: req.params.id } });
+    const single_Chief = await Chief?.findOne({ where: { title: req.params.id } });
     return single_Chief;
   } catch (e: any) {
     return next(new AppError(e, BAD_REQUEST));
@@ -388,7 +388,7 @@ export const fetchChiefs = async (next: NextFunction, req: Request) => {
     }
 
     const { limit, offset } = getPagination(page, size);
-    const chiefs = await Chief.findAndCountAll({
+    const chiefs = await Chief?.findAndCountAll({
       limit,
       offset,
       order: [
@@ -405,7 +405,7 @@ export const fetchChiefs = async (next: NextFunction, req: Request) => {
 
 export const fetchChiefsAdmin = async (next: NextFunction, req: Request) => {
   try {
-    const chiefs = await Chief.findAll({
+    const chiefs = await Chief?.findAll({
       order: [
         ["position", "ASC"]
       ],
@@ -423,7 +423,7 @@ export const delChief = async (next: NextFunction, req: Request) => {
   try {
     transaction = await sequelize.transaction();
 
-    const fetch = await Chief.findOne({ where: { title: req.params.id } }, { transaction });
+    const fetch = await Chief?.findOne({ where: { title: req.params.id } }, { transaction });
     const img = fs.readdirSync(resolve(__dirname, "../../../uploads"));
     img.map((value) => {
       if(fetch.dataValues.image !== null){
@@ -432,7 +432,7 @@ export const delChief = async (next: NextFunction, req: Request) => {
         }
       }
     });
-    await Chief.destroy({ where: { title: req.params.id } }, { transaction });
+    await Chief?.destroy({ where: { title: req.params.id } }, { transaction });
     await transaction.commit();
   } catch (e: any) {
     if (transaction) {
@@ -452,7 +452,7 @@ export const newPastOba = async (next: NextFunction, req: Request) => {
     transaction = await sequelize.transaction();
 
     const { position } = req.body;
-    const pos = await PastOba.findOne({ where: { position } }, { transaction });
+    const pos = await PastOba?.findOne({ where: { position } }, { transaction });
     if (pos) {
       return next(new AppError("Oba with this position already exist", BAD_REQUEST));
     }
@@ -461,7 +461,7 @@ export const newPastOba = async (next: NextFunction, req: Request) => {
       return next(new AppError("Negative values or zeros are not allowed in position", BAD_REQUEST));
     }
 
-    const new_past_oba = await PastOba.create({ ...req.body });
+    const new_past_oba = await PastOba?.create({ ...req.body });
     await transaction.commit();
 
     return new_past_oba;
@@ -479,7 +479,7 @@ export const updPastOba = async (next: NextFunction, req: Request) => {
   try {
     transaction = await sequelize.transaction();
 
-    const new_past_oba = await PastOba.update(
+    const new_past_oba = await PastOba?.update(
       req.body,
       { where: { id: req.params.id } },
       { transaction }
@@ -497,7 +497,7 @@ export const updPastOba = async (next: NextFunction, req: Request) => {
 
 export const readSinglePastOba = async (next: NextFunction, req: Request) => {
   try {
-    const single_past_oba = await PastOba.findOne({ where: { id: req.params.id } });
+    const single_past_oba = await PastOba?.findOne({ where: { id: req.params.id } });
     return single_past_oba;
   } catch (e: any) {
     return next(new AppError(e, BAD_REQUEST));
@@ -520,7 +520,7 @@ export const fetchPastObas = async (next: NextFunction, req: Request) => {
     }
 
     const { limit, offset } = getPagination(page, size);
-    const pastOba = await PastOba.findAndCountAll({
+    const pastOba = await PastOba?.findAndCountAll({
       limit,
       offset,
       order: [
@@ -537,7 +537,7 @@ export const fetchPastObas = async (next: NextFunction, req: Request) => {
 
 export const fetchPastObaAdmin = async (next: NextFunction, req: Request) => {
   try {
-    const pastOba = await PastOba.findAll({
+    const pastOba = await PastOba?.findAll({
       order: [
         ["position", "ASC"]
       ],
@@ -555,7 +555,7 @@ export const delPastOba = async (next: NextFunction, req: Request) => {
   try {
     transaction = await sequelize.transaction();
 
-    await PastOba.destroy({ where: { id: req.params.id } }, { transaction });
+    await PastOba?.destroy({ where: { id: req.params.id } }, { transaction });
     await transaction.commit();
   } catch (e: any) {
     if (transaction) {

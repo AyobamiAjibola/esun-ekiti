@@ -17,7 +17,7 @@ export const adminReg = async (body: UserType, next: NextFunction, req: Request,
     transaction = await sequelize.transaction();
 
     const { phone_num, unique, user_type } = body;
-    const user = await Admin.findOne({ where: { phone_num } }, { transaction });
+    const user = await Admin?.findOne({ where: { phone_num } }, { transaction });
     if (user) {
       return next(new AppError("Phone number already in use", BAD_REQUEST));
     }
@@ -30,7 +30,7 @@ export const adminReg = async (body: UserType, next: NextFunction, req: Request,
 
     const hashPass = hash(req.body.password);
     const hashConfirmPass = hash(req.body.confirm_password);
-    const newAdminUser = await Admin.create(
+    const newAdminUser = await Admin?.create(
       {
         ...req.body,
         password: hashPass,
@@ -63,15 +63,15 @@ export const updateUser = async (body: UserType, next: NextFunction, req: Reques
 
     const { phone_num, password, confirm_password } = body;
 
-    const fetch = await Admin.findOne({where: {phone_num: req.params.id}}, { transaction });
+    const fetch = await Admin?.findOne({where: {phone_num: req.params.id}}, { transaction });
     if (phone_num) {
-      const user = await Admin.findOne({ where: { phone_num } }, { transaction });
+      const user = await Admin?.findOne({ where: { phone_num } }, { transaction });
       if (user && user.dataValues.phone_num !== fetch.dataValues.phone_num) {
         return next(new AppError("A user with this phone number already exist", BAD_REQUEST));
       }
     }
 
-    const user = await Admin.update(
+    const user = await Admin?.update(
       {
         ...req.body,
         password,
@@ -94,7 +94,7 @@ export const updateUser = async (body: UserType, next: NextFunction, req: Reques
 export const singleUser = async (next: NextFunction, req: Request) => {
   try {
 
-    const user = await Admin.findOne({ where: { phone_num: req.params.id } });
+    const user = await Admin?.findOne({ where: { phone_num: req.params.id } });
     return user;
 
   } catch (e: any) {
@@ -106,21 +106,21 @@ export const deleteUser = async (next: NextFunction, userId: string, req: Reques
   let transaction;
   try {
     transaction = await sequelize.transaction();
-    const fetch = await Admin.findOne({where: {phone_num: userId}});
+    const fetch = await Admin?.findOne({where: {phone_num: userId}});
 
       if(fetch.dataValues.id === req.data.id) {
-        await Admin.destroy({ where: { phone_num: userId } }, { transaction });
+        await Admin?.destroy({ where: { phone_num: userId } }, { transaction });
         const token = req.cookies['refreshToken'];
 
         if(token){
-          await UserToken.destroy({ where: {token: token }}, { transaction });
+          await UserToken?.destroy({ where: {token: token }}, { transaction });
           res.cookie('refreshToken', '', {
             httpOnly: true,
             maxAge: 0
           })
         }
       } else {
-        await Admin.destroy({ where: { phone_num: userId } }, { transaction });
+        await Admin?.destroy({ where: { phone_num: userId } }, { transaction });
       }
 
     await transaction.commit();
@@ -136,7 +136,7 @@ export const deleteUser = async (next: NextFunction, userId: string, req: Reques
 export const fetchUser = async (next: NextFunction, req: Request) => {
   try {
 
-    const admin = await Admin.findAll();
+    const admin = await Admin?.findAll();
 
     return admin;
   } catch (e: any) {

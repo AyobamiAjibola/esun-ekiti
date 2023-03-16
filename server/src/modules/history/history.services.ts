@@ -16,13 +16,13 @@ export const history = async (body: HistoryType, next: NextFunction, req: Reques
   try {
     transaction = await sequelize.transaction();
 
-    const fetch = await History.findOne({where: {esun: 'esun'}});
+    const fetch = await History?.findOne({where: {esun: 'esun'}});
     if(fetch) return next(new AppError("History already curated", FORBIDDEN));
 
     // const filenames = req.files! as Array<Express.Multer.File>;
     // const images = filenames.map((file) => file.filename);
 
-    const create_history = await History.create({
+    const create_history = await History?.create({
       ...req.body
     });
     await transaction.commit();
@@ -44,7 +44,7 @@ export const updHistory = async (body: HistoryType, next: NextFunction, req: Req
 
     const { history } = body;
 
-    const upd_history = await History.update(
+    const upd_history = await History?.update(
       {
         history
       },
@@ -79,7 +79,7 @@ export const updHistoryImg = async (body: HistoryType, next: NextFunction, req: 
 
       const main_img = new_image.toString();
 
-      await History.update(
+      await History?.update(
         { image: Sequelize.fn("array_append", Sequelize.col("image"), main_img) },
         { where: { esun: 'esun' } },
         { transaction }
@@ -98,7 +98,7 @@ export const updHistoryImg = async (body: HistoryType, next: NextFunction, req: 
 export const fetchHistory = async (next: NextFunction, req: Request) => {
     try {
 
-      const result = await History.findOne({where: { esun: 'esun' }});
+      const result = await History?.findOne({where: { esun: 'esun' }});
 
       function limit (string = '', limit = 0) {
         return string.substring(0, limit)
@@ -114,7 +114,7 @@ export const fetchHistory = async (next: NextFunction, req: Request) => {
 
 export const readSingleHistory = async (next: NextFunction, req: Request) => {
   try {
-    const single_history = await History.findOne({ where: { id: req.params.id } });
+    const single_history = await History?.findOne({ where: { id: req.params.id } });
     return single_history;
   } catch (e: any) {
     return next(new AppError(e, BAD_REQUEST));
@@ -127,7 +127,7 @@ export const delHistory = async (next: NextFunction, req: Request) => {
   try {
     transaction = await sequelize.transaction();
 
-    const fetch = await History.findOne({ where: { id: req.params.id } }, { transaction });
+    const fetch = await History?.findOne({ where: { id: req.params.id } }, { transaction });
     const img = fs.readdirSync(resolve(__dirname, "../../../uploads"));
     img.map((value) => {
       if (fetch.dataValues.images.includes(value)) {
@@ -135,7 +135,7 @@ export const delHistory = async (next: NextFunction, req: Request) => {
       }
     });
 
-    const del = await History.destroy({ where: { id: req.params.id } });
+    const del = await History?.destroy({ where: { id: req.params.id } });
     await transaction.commit();
     return del;
   } catch (e: any) {
@@ -153,7 +153,7 @@ export const delete_single_image = async (req: Request) => {
     transaction = await sequelize.transaction();
     const rmv = req.params.id; // front end will give me the name of the image
 
-    await History.update(
+    await History?.update(
       { image: Sequelize.fn("array_remove", Sequelize.col("image"), rmv) },
       { where: { esun: 'esun' } },
       { transaction }
