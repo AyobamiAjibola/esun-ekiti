@@ -17,8 +17,10 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
   try {
     transaction = await sequelize.transaction();
     const { phone_num, password } = body;
-    console.log(body)
+
     const user = await Admin?.findOne({ where: { phone_num } }, { transaction });
+    const users = await Admin?.findAll()
+    console.log(users)
 
     if (!user || user === null) {
       return next(new AppError("Invalid phone number or password", BAD_REQUEST));
