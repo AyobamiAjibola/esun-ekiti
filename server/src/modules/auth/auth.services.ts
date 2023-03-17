@@ -13,9 +13,8 @@ const { sequelize } = db;
 const { UserToken } = db;
 
 export const adminLogin = async (res: Response, body: AuthType, next: NextFunction) => {
-  let transaction;
+
   try {
-    // transaction = await sequelize.transaction();
     const { phone_num, password } = body;
 
     const user = await Admin?.findOne({ where: { phone_num } });
@@ -29,7 +28,6 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
       return next(new AppError("Invalid phone number or password", BAD_REQUEST));
     }
 
-    // await transaction.commit();
     const { token, refreshToken } = await jwtGenerator(user.dataValues);
 
     res.cookie('refreshToken', refreshToken, {
@@ -39,9 +37,6 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
 
     return {token};
   } catch (e: any) {
-    // if (transaction) {
-    //   await transaction.rollback();
-    // }
     return next(new AppError(e, BAD_REQUEST));
   }
 };
