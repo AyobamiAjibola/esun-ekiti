@@ -55,16 +55,21 @@ export default function NewUser () {
   const onSubmitAdmin: SubmitHandler<Inputs> = async (data: any) => {
     try {
       setValues({ ...values, isLoading: true })
+      const fullName = data.fullName.toLowerCase();
+      const phone_num = data.phone_num; // eslint-disable-line
+      const password = data.password;
+      const confirm_password = data.confirm_password; // eslint-disable-line
+      const unique = data.unique
+      const user_type = role // eslint-disable-line
 
-      const formData = new FormData();
-      formData.append("fullName", data.fullName.toLowerCase());
-      formData.append("phone_num", data.phone_num);
-      formData.append("password", data.password);
-      formData.append("confirm_password", data.confirm_password);
-      formData.append("unique", data.unique);
-      formData.append("user_type", role);
-      console.log(formData)
-      const res = await axios.post("user/register_admin", formData);
+      const res = await axios.post("user/register_admin", {
+        fullName,
+        phone_num,
+        password,
+        confirm_password,
+        unique,
+        user_type
+      });
 
         if (res.data.errors) { //eslint-disable-line
         return setValues({ ...values, isErr: res.data.errors[0].msg })

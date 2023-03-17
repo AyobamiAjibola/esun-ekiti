@@ -17,6 +17,7 @@ export const adminReg = async (body: UserType, next: NextFunction, req: Request,
     transaction = await sequelize.transaction();
 
     const { phone_num, unique, user_type } = body;
+    console.log(body)
     const user = await Admin?.findOne({ where: { phone_num } }, { transaction });
     if (user) {
       return next(new AppError("Phone number already in use", BAD_REQUEST));
