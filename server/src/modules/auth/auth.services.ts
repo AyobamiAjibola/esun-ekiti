@@ -18,7 +18,7 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
     transaction = await sequelize.transaction();
     const { phone_num, password } = body;
 
-    const user = await Admin?.findOne({ where: { phone_num } }, { transaction });
+    const user = await Admin && Admin.findOne({ where: { phone_num } }, { transaction });
     const users = await Admin && Admin.findAll()
     console.log(users)
 
