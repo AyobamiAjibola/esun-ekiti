@@ -6,10 +6,9 @@ import { BAD_REQUEST } from "../../constants/response-codes";
 import AppError from "../../utils/appError";
 import { verifyBcryptPassword } from "../../utils/auth";
 import { verifyRefreshToken } from "../../utils/verifyRefreshToken";
-const db = require('../../sequelize/models').default;
+const db = require('../../sequelize/models');
 
 const { Admin } = db;
-const { sequelize } = db;
 const { UserToken } = db;
 
 export const adminLogin = async (res: Response, body: AuthType, next: NextFunction) => {
@@ -18,7 +17,7 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
     const { phone_num, password } = body;
 
     const user = await Admin?.findOne({ where: { phone_num } });
-    console.log(user)
+
     if (!user || user === null) {
       return next(new AppError("Invalid phone number or password", BAD_REQUEST));
     }

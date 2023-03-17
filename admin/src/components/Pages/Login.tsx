@@ -242,6 +242,7 @@ export default function Login () {
             >
               Sign In
             </LoadingButton>
+            <Link to='/'>Register</Link>
           <Box
             sx={{
               display: 'flex',
