@@ -70,16 +70,32 @@ export default function Login () {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: { sm: 'row', xs: 'column' }
       }}
     >
+
+      <Box
+        sx={{
+          display: { sm: 'none', xs: 'flex' },
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '20%',
+          width: '100vw',
+          backgroundColor: process.env.REACT_APP_MAIN_COLOR
+        }}
+      >
+        <Typography sx={{ fontWeight: 500, fontSize: '20px', textAlign: 'center', color: 'white', p: 4 }}>
+          Omo afowo bokole, fsfseew werf werewr werwe rwerew rwer wer ew r wer we rwerewrew
+        </Typography>
+      </Box>
+
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '100vh',
-          width: '80%'
+          height: { sm: '100vh', xs: '80%' },
+          width: { sm: '80%', xs: '100vw' }
         }}
       >
         <Box
@@ -277,7 +293,7 @@ export default function Login () {
       </Box>
       <Box
         sx={{
-          display: 'flex',
+          display: { sm: 'flex', xs: 'none' },
           justifyContent: 'center',
           alignItems: 'center',
           height: '100vh',

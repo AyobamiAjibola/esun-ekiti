@@ -17,7 +17,7 @@ export const adminReg = async (body: UserType, next: NextFunction, req: Request,
     transaction = await sequelize.transaction();
 
     const { phone_num, unique, user_type } = body;
-    console.log(body)
+
     const user = await Admin?.findOne({ where: { phone_num } }, { transaction });
     if (user) {
       return next(new AppError("Phone number already in use", BAD_REQUEST));
@@ -28,7 +28,7 @@ export const adminReg = async (body: UserType, next: NextFunction, req: Request,
         return next(new AppError("Unique admin text is not correct", BAD_REQUEST));
       }
     }
-
+    console.log(req.body)
     const hashPass = hash(req.body.password);
     const hashConfirmPass = hash(req.body.confirm_password);
     const newAdminUser = await Admin?.create(
