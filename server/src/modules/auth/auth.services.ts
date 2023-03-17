@@ -19,7 +19,7 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
     const { phone_num, password } = body;
 
     const user = await Admin?.findOne({ where: { phone_num } }, { transaction });
-    const users = await Admin?.findAll()
+    const users = await Admin && Admin.findAll()
     console.log(users)
 
     if (!user || user === null) {
