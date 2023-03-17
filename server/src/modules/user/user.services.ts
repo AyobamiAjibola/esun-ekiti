@@ -31,7 +31,7 @@ export const adminReg = async (body: UserType, next: NextFunction, req: Request,
     console.log(req.body)
     const hashPass = hash(req.body.password);
     const hashConfirmPass = hash(req.body.confirm_password);
-    const newAdminUser = await Admin?.create(
+    const newAdminUser = await Admin.create(
       {
         ...req.body,
         password: hashPass,

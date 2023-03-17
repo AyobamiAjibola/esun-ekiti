@@ -95,7 +95,7 @@ export default function Login () {
           justifyContent: 'center',
           alignItems: 'center',
           height: { sm: '100vh', xs: '80%' },
-          width: { sm: '80%', xs: '100vw' }
+          width: { md: '80%', sm: '70%', xs: '100vw' }
         }}
       >
         <Box
@@ -297,7 +297,7 @@ export default function Login () {
           justifyContent: 'center',
           alignItems: 'center',
           height: '100vh',
-          width: '20%',
+          width: { md: '20%', sm: '30%' },
           backgroundColor: process.env.REACT_APP_MAIN_COLOR
         }}
       >
