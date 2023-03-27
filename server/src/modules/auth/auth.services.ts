@@ -28,7 +28,7 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
-      domain: 'esun-ekiti-portal.onrender.com',
+      domain: 'https://esun-ekiti-portal.onrender.com',
       path: '/',
       secure: true,
       sameSite: 'strict'

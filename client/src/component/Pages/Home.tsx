@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     // borderBottom: '8px solid #712E1E'
   },
   rouse: {
-    width: '75%',
     height: '100%',
     zIndex: 1
   },
@@ -80,7 +79,8 @@ export default function Home () {
     <Stack>
       <Box className={classes.carousel}
         sx={{
-          height: { lg: '550px', sm: '400px', xs: '300px' }
+          height: { lg: '550px', sm: '400px', xs: '300px' },
+          width: { sm: '75%', xs: '100%' }
         }}
       >
         <Box className={classes.rouse}>
