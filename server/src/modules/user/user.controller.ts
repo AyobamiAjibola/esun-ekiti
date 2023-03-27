@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import db from "../../sequelize/models";
+// import db from "../../sequelize/models";
 import { BAD_REQUEST, OK, RESOURCE_CREATED } from "../../constants/response-codes";
 import * as userValidator from "./user.validator";
 import AppError from "../../utils/appError";
 import * as usersServices from "./user.services";
 
-const { sequelize } = db;
+// const { sequelize } = db;
 
 //= =================== CREATE ADMIN ==================//
 const register_admin = async (req: Request, res: Response, next: NextFunction) => {

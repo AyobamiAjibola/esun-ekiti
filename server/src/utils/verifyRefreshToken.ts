@@ -2,10 +2,11 @@ import { NextFunction, Request } from "express";
 import JWT from "jsonwebtoken";
 import { Op } from "sequelize";
 import { BAD_REQUEST, UNAUTHORIZED } from "../constants/response-codes";
-import db from '../sequelize/models';
+// import db from '../sequelize/models';
 import AppError from "./appError";
+import UserToken from "../models/UserToken"
 
-const { UserToken } = db
+// const { UserToken } = db
 
 export const verifyRefreshToken = async (refreshToken: string, req: Request, next: NextFunction) => {
 	try {

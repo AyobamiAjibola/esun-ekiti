@@ -6,14 +6,10 @@ import { BAD_REQUEST } from "../../constants/response-codes";
 import AppError from "../../utils/appError";
 import { verifyBcryptPassword } from "../../utils/auth";
 import { verifyRefreshToken } from "../../utils/verifyRefreshToken";
-const db = require('../../sequelize/models');
-
-const { Admin } = db;
-const { UserToken } = db;
+import UserToken from "../../models/UserToken";
+import Admin from "../../models/Admin";
 
 export const adminLogin = async (res: Response, body: AuthType, next: NextFunction) => {
-
-  try {
     const { phone_num, password } = body;
 
     const user = await Admin?.findOne({ where: { phone_num } });
@@ -35,14 +31,9 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
     });
 
     return {token};
-  } catch (e: any) {
-    return next(new AppError(e, BAD_REQUEST));
-  }
 };
 
 export const refreshToks = async (req: Request, res: Response, next: NextFunction) => {
-
-  try {
 
     await verifyRefreshToken(req.cookies['refreshToken'], req, next)
 
@@ -62,14 +53,10 @@ export const refreshToks = async (req: Request, res: Response, next: NextFunctio
       { expiresIn: process.env.JWT_ACCESS_TOKEN_TIME_LIMIT }
     );
     res.status(200).json({ token });
-  } catch (e: any) {
-    return next(new AppError(e, BAD_REQUEST));
-  }
 };
 
 export const logout = async (req: Request, res: Response, next: NextFunction) => {
 
-  try {
     const token = req.cookies['refreshToken'];
 
     if(token){
@@ -79,20 +66,11 @@ export const logout = async (req: Request, res: Response, next: NextFunction) =>
         maxAge: 0
       })
     }
-
-  } catch (e: any) {
-    return next(new AppError(e, BAD_REQUEST));
-  }
 };
 
 export const cookie = async (req: Request, res: Response, next: NextFunction) => {
 
-  try {
     const token = req.cookies['refreshToken'];
 
     return token
-
-  } catch (e: any) {
-    return next(new AppError(e, BAD_REQUEST));
-  }
 };

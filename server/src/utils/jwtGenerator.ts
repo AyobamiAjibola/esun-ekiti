@@ -1,9 +1,10 @@
 import JWT from "jsonwebtoken";
 import { resolve } from "path";
 import dotenv from "dotenv";
-import db from "../sequelize/models";
+import UserToken from "../models/UserToken"
+// import db from "../sequelize/models";
 
-const { UserToken } = db;
+// const { UserToken } = db;
 dotenv.config({ path: resolve(__dirname, "../.env") });
 
 export const jwtGenerator = async (user: any) => {

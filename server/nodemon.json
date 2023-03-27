@@ -1,12 +1,5 @@
 {
+    "exec": "ts-node src/index.ts",
     "watch": ["src"],
-    "ext": "js,json,ts",
-    "ignore": [".git", "node_modules/", "dist/"],
-    "execMap": {
-        "ts": "node -r ts-node/register"
-    },
-    "restartable": "rs",
-    "env": {
-        "NODE_ENV": "development"
-    }
-}
+    "ext": "ts"
+  }
