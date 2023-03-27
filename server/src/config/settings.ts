@@ -1,6 +1,8 @@
 import {appCommonTypes} from '../@types/app-common';
 import AppSettings = appCommonTypes.AppSettings;
 
+import 'dotenv/config';
+
 const settings: AppSettings = {
   postgres: {
     development: {

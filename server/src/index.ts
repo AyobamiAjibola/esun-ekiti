@@ -4,8 +4,8 @@ import log from "./utils/logger";
 import createServer from "./utils/server";
 import connect from "./utils/connect";
 
-dotenv.config({ path: resolve(__dirname, "../.env") });
-// import 'dotenv/config';
+// dotenv.config({ path: resolve(__dirname, "../.env") });
+import 'dotenv/config';
 
 const PORT = process.env.PORT || 5000;
 

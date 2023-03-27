@@ -22,13 +22,13 @@ if (db) {
 }
 
 const sequelize = new Sequelize({
-    host: postgresConfig.host || '127.0.0.1',
-    username: postgresConfig.username || 'postgres',
-    password: postgresConfig.password || 'admin',
-    port: +(<string>postgresConfig.port) || 5432,
-    database: postgresConfig.database || 'esun1',
+    host: postgresConfig.host,
+    username: postgresConfig.username,
+    password: postgresConfig.password,
+    port: +(<string>postgresConfig.port),
+    database: postgresConfig.database,
     models: [models],
-    dialect: <Dialect>postgresConfig.dialect || 'postgres',
+    dialect: <Dialect>postgresConfig.dialect,
     logging: false,
     define: {
       freezeTableName: true,
