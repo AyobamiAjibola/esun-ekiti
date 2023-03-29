@@ -31,7 +31,7 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
       secure: true,
       sameSite: 'none',
       path:'/',
-      domain: 'esun-ekiti-portal.onrender.com'
+      domain: 'https://esun-ekiti-portal.onrender.com'
     });
 
     return {token};
