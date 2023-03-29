@@ -9,6 +9,7 @@ import { Box } from "@mui/material";
 export default function ProtectedRoute () {
   const { auth } = useAuth();
   const cookie = useCookie()
+  console.log(cookie)
 
   const decoded: any = auth?.access
     ? jwt_decode(auth.access)
