@@ -6,7 +6,7 @@ import { loginValues, phonePattern, passwordPattern } from "../utils/helpers";
 import useAuth from '../hooks/useAuth';
 import useToggle from "../hooks/useToggle";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useLayoutEffect, useState } from 'react';
+import { useState } from 'react';
 import { LoadingButton } from "@mui/lab";
 import SnackBar from "../utils/SnackBar";
 
@@ -270,7 +270,7 @@ export default function Login () {
               >
                 Sign In
               </LoadingButton>
-              <Link to='/register'>Register</Link>
+              {/* <Link to='/register'>Register</Link> */}
             <Box
               sx={{
                 display: 'flex',
