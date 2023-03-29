@@ -1258,7 +1258,6 @@ function ObaModal ({ resource, classes, axiosPrivate, setUpdate, state, setState
       })
     }
   }, [reset, resource]);
-  console.log(resource)
 
   return (
     <>
