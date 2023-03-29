@@ -6,60 +6,32 @@ import AppError from "../../utils/appError";
 import { ProjectType } from "./project.types";
 import { Op, Sequelize } from "sequelize";
 import { getPagination, getPagingData } from "../../helpers/Pagination";
-const db = require('../../sequelize/models').default;
-
-const { sequelize } = db;
-const { Project } = db;
+import Project from "../../models/Project";
 
 export const newProject = async (body: ProjectType, next: NextFunction, req: Request) => {
-  let transaction;
 
-  try {
-    transaction = await sequelize.transaction();
-
-    const new_project = await Project?.create({
+    const new_project = await Project.create({
       ...req.body
     });
-    await transaction.commit();
 
     return new_project;
-  } catch (e: any) {
-    if (transaction) {
-      await transaction.rollback();
-    }
-    return next(new AppError(e, BAD_REQUEST));
-  }
+
 };
 
 export const updProject = async (body: ProjectType, next: NextFunction, req: Request) => {
-  let transaction;
 
-  try {
-    transaction = await sequelize.transaction();
-
-    const upd_project = await Project?.update(
+    const upd_project = await Project.update(
       {
         ...req.body
       },
-      { where: { id: req.params.id } },
-      { transaction }
+      { where: { id: req.params.id } }
     );
-    await transaction.commit();
 
     return upd_project;
-  } catch (e: any) {
-    if (transaction) {
-      await transaction.rollback();
-    }
-    return next(new AppError(e, BAD_REQUEST));
-  }
+
 };
 
 export const updProjectImg = async (body: ProjectType, next: NextFunction, req: Request) => {
-  let transaction;
-
-  try {
-    transaction = await sequelize.transaction();
 
       const filenames = req.files! as Array<Express.Multer.File>;
       const img = filenames.map((file) => file.filename);
@@ -71,33 +43,24 @@ export const updProjectImg = async (body: ProjectType, next: NextFunction, req: 
       });
 
       const main_img = new_image.toString();
-      await Project?.update(
+      await Project.update(
         { image: Sequelize.fn("array_append", Sequelize.col("image"), main_img) },
-        { where: { id: req.params.id } },
-        { transaction }
+        { where: { id: req.params.id } }
       );
 
-    await transaction.commit();
 
-  } catch (e: any) {
-    if (transaction) {
-      await transaction.rollback();
-    }
-    return next(new AppError(e, BAD_REQUEST));
-  }
+
 };
 
 export const readSingleProject = async (next: NextFunction, req: Request) => {
-  try {
-    const single_project = await Project?.findOne({ where: { id: req.params.id } });
-    return single_project;
-  } catch (e: any) {
-    return next(new AppError(e, BAD_REQUEST));
-  }
+
+  const single_project = await Project.findOne({ where: { id: req.params.id } });
+  return single_project;
+
 };
 
 export const fetchProject = async (next: NextFunction, req: Request) => {
-  try {
+
     const { q } = req.query;
     const keys = ["project"];
     const search = (data: any) => {
@@ -106,11 +69,26 @@ export const fetchProject = async (next: NextFunction, req: Request) => {
         item[key].toLowerCase().includes(q)
       })});
     };
-    const biz = await Project?.findAll({
+    const biz = await Project.findAll({
       where: {isProject: "active"},
-      limit: 5,
-      order: [["createdAt"]],
+      limit: 5
     });
+
+    for (let i = 1; i < biz.length; i++) {
+      for (let j = i; j > 0; j--) {
+        const _t1: any = biz[j];
+        const _t0: any = biz[j - 1];
+
+        if (new Date(_t1.createdAt).getTime() > new Date(_t0.createdAt).getTime()) {
+          biz[j] = _t0;
+          biz[j - 1] = _t1;
+
+          // console.log('sorted')
+        } else {
+          // console.log('no sorted')
+        }
+      }
+    }
 
     const result = q ? search(biz) : biz;
     const array: any = [];
@@ -131,17 +109,15 @@ export const fetchProject = async (next: NextFunction, req: Request) => {
         })
     })
     return { result, array };
-  } catch (e: any) {
-    return next(new AppError(e, BAD_REQUEST));
-  }
+
 };
 
 export const fetchProjectClient = async (next: NextFunction, req: Request) => {
-  try {
+
     const { page, size } = req.query;
 
     const { limit, offset } = getPagination(page, size);
-    const news = await Project?.findAndCountAll({
+    const news = await Project.findAndCountAll({
       where: { isProject: "active" },
       limit,
       offset,
@@ -167,23 +143,34 @@ export const fetchProjectClient = async (next: NextFunction, req: Request) => {
         })
     })
     return { result, array };
-  } catch (e: any) {
-    return next(new AppError(e, BAD_REQUEST));
-  }
+
 };
 
 export const fetchProjectLimit = async (next: NextFunction, req: Request) => {
-  try {
-    const project = await Project?.findAll(
-      {where: {isProject: "active"}},
-      {
-        order: [["createdAt", "ASC"]]
-      },
+
+    const project = await Project.findAll(
+      {where: {isProject: "active"}}
     );
+
+    for (let i = 1; i < project.length; i++) {
+      for (let j = i; j > 0; j--) {
+        const _t1: any = project[j];
+        const _t0: any = project[j - 1];
+
+        if (new Date(_t1.createdAt).getTime() > new Date(_t0.createdAt).getTime()) {
+          project[j] = _t0;
+          project[j - 1] = _t1;
+
+          // console.log('sorted')
+        } else {
+          // console.log('no sorted')
+        }
+      }
+    }
 
     const array: any = [];
 
-    project?.map((value: any) => {
+    project.map((value: any) => {
       function limit (string = '', limit = 0) {
         return string.substring(0, limit)
       }
@@ -203,49 +190,32 @@ export const fetchProjectLimit = async (next: NextFunction, req: Request) => {
     })
 
     return { array };
-  } catch (e: any) {
-    return next(new AppError(e, BAD_REQUEST));
-  }
+
 };
 
 export const delProject = async (next: NextFunction, req: Request) => {
-  let transaction;
 
-  try {
-    transaction = await sequelize.transaction();
-
-    const fetch = await Project?.findOne({ where: { id: req.params.id } }, { transaction });
+    const fetch = await Project.findOne({ where: { id: req.params.id } }, );
     const img = fs.readdirSync(resolve(__dirname, "../../../uploads"));
     img.map((value) => {
-      if(fetch.dataValues.image !== null){
-        if (fetch.dataValues.image.includes(value)) {
+      if(fetch?.dataValues.image !== null){
+        if (fetch?.dataValues.image.includes(value)) {
           fs.unlinkSync(resolve(__dirname, `../../../uploads/${value}`));
         }
       }
     });
 
     const del = await Project?.destroy({ where: { id: req.params.id } });
-    await transaction.commit();
     return del;
-  } catch (e: any) {
-    if (transaction) {
-      await transaction.rollback();
-    }
-    return next(new AppError(e, BAD_REQUEST));
-  }
+
 };
 
 export const delete_single_image = async (req: Request) => {
-  let transaction;
-
-  try {
-    transaction = await sequelize.transaction();
     const rmv = req.params.id;
 
-    await Project?.update(
+    await Project.update(
       { image: Sequelize.fn("array_remove", Sequelize.col("image"), rmv) },
-      { where: { isProject: "active" } },
-      { transaction }
+      { where: { isProject: "active" } }
     );
 
     const files = fs.readdirSync(resolve(__dirname, '../../../uploads'));
@@ -255,11 +225,4 @@ export const delete_single_image = async (req: Request) => {
       }
     });
 
-    await transaction.commit();
-  } catch (error: any) {
-    // res.status(BAD_REQUEST).send(error.message);
-    if (transaction) {
-      await transaction.rollback();
-    }
-  }
 };

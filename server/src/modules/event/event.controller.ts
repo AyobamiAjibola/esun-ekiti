@@ -12,7 +12,7 @@ const new_event = async (req: Request, res: Response, next: NextFunction) => {
       return next(new AppError(validate.error.message, BAD_REQUEST));
     }
 
-    const newEvent = await eventServices.newEvent(req.body, next);
+    const newEvent = await eventServices.newEvent(req.body, next, req);
 
     newEvent &&
       res.status(RESOURCE_CREATED).json({

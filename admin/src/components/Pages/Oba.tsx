@@ -352,7 +352,7 @@ export default function Oba () {
 
   useEffect(() => {
     (() => {
-      if (resource?.result) { //eslint-disable-line
+      if (resource?.result?.info) { //eslint-disable-line
         setConfirm(true)
       }
     })()
@@ -601,12 +601,12 @@ export default function Oba () {
                       textAlign: 'center'
                     }}
                   >
-                    { resource.result?.info?.fullName.toUpperCase() }
+                    { resource.result?.info ? resource.result?.info?.fullName.toUpperCase() : '' }
                   </Typography>
                   <Typography
                     sx={{ color: '#585858', fontSize: '18px', fontWeight: 600, textAlign: 'center' }}
                   >
-                    { `${resource.result?.info?.from} -- ${resource.result?.info?.to}` }
+                    { resource.result?.info ? `${resource.result?.info?.from} -- ${resource.result?.info?.to}` : '' }
                   </Typography>
                 </>
               }
@@ -1258,20 +1258,21 @@ function ObaModal ({ resource, classes, axiosPrivate, setUpdate, state, setState
       })
     }
   }, [reset, resource]);
+  console.log(resource)
 
   return (
     <>
-      { !resource?.result && <Button //eslint-disable-line
+      { !resource?.result?.info && <Button //eslint-disable-line
         className={ classes.btn1 }
         onClick={ handleOpen } //eslint-disable-line
       >
         New Oba
       </Button> }
-      { resource?.result && <Button //eslint-disable-line
+      { resource?.result?.info && <Button //eslint-disable-line
         className={ classes.btn1 }
         onClick={ handleOpen } //eslint-disable-line
       >Edit Oba</Button> }
-      <DelObaModal
+      { resource?.result?.info && <DelObaModal
         axiosPrivate={ axiosPrivate }
         setUpdate={ setUpdate }
         resource={ resource }
@@ -1279,7 +1280,7 @@ function ObaModal ({ resource, classes, axiosPrivate, setUpdate, state, setState
         state={ state }
         setState={ setState }
         setOlori={ setOlori }
-      />
+      />}
       <Modal
         open={values.open}
         onClose={handleClose}
@@ -1398,7 +1399,7 @@ function ObaModal ({ resource, classes, axiosPrivate, setUpdate, state, setState
             </Box>
             <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
               <LoadingButton
-                onClick={ !resource?.result ? handleSubmit(onSubmitNew) : handleSubmit(onSubmit) } //eslint-disable-line
+                onClick={ !resource?.result?.info ? handleSubmit(onSubmitNew) : handleSubmit(onSubmit) } //eslint-disable-line
                 size="small"
                 loading={values.isLoading}
                 loadingIndicator="Saving..."
