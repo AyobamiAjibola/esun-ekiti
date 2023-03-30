@@ -384,7 +384,8 @@ export default function Oba () {
   useLayoutEffect(() => {
     document.body.style.backgroundColor = 'transparent'
   })
-
+  console.log(error)
+  console.log(resource)
   return (
     <>
       <Box className={classes.wrapper}>
