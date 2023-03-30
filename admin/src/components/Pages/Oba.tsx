@@ -384,8 +384,7 @@ export default function Oba () {
   useLayoutEffect(() => {
     document.body.style.backgroundColor = 'transparent'
   })
-  console.log(error)
-  console.log(resource)
+
   return (
     <>
       <Box className={classes.wrapper}>
@@ -429,8 +428,8 @@ export default function Oba () {
               setOlori={ setOlori }
             />
           </Box>
-          {!error
-          ? <Box // eslint-disable-line
+          {/* {!error */}
+          <Box // eslint-disable-line
             sx={{
               width: "100%",
               display: "flex",
@@ -641,7 +640,8 @@ export default function Oba () {
                 {resource.result?.bio}
               </Typography>
             </Box> }
-          </Box> : <ErrorPage error={ error } /> }
+          </Box>
+           {/* <ErrorPage error={ error } /> } */}
           {resource?.result && <Box //eslint-disable-line
             sx={{
               width: '100%',
