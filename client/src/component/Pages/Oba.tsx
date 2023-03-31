@@ -39,7 +39,7 @@ export default function Oba () {
     {
       networkMode: 'always',
       getNextPageParam: (_lastPage, pages) => {
-        if (pages.length < pages[0]?.result.totalPages) {
+        if (pages.length < pages[0]?.result?.totalPages) {
           return pages.length + 1 - 1
         } else {
           return undefined
@@ -200,58 +200,41 @@ export default function Oba () {
           PAST OBAS
         </Typography>
         {status === 'loading'
-          ? (
-              <Box
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-              >
-                <Typography>Loading...</Typography>
-              </Box>
-            )
-          : status === 'error'
-            ? ( //eslint-disable-line
-                <Box
-                  sx={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}
-                >
-                  <ErrorPage />
-                </Box>
-              ) : (
-                pastObaData?.pages?.map((page: any, idx: number) => (
-                  <Fragment key={ idx }>
-                    {page?.result?.result?.map((value: any) => {
-                      return <Box key={value.id}>
-                        <ul style={{ color: '#fff' }}>
-                          <li
-                            style={{
-                              fontSize: '20px',
-                              fontWeight: 500
-                            }}
-                          >
-                            { value.fullName.toUpperCase() }
-                          </li>
-                          <Typography
-                            variant='body2'
-                          >
-                            { value.from } - { value.to }
-                          </Typography>
-                          <hr style={{ width: '10%' }}/>
-                        </ul>
-                      </Box>
-                    })}
-                  </Fragment>
-                ))
-              )
+          ? <Box
+              sx={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
+              <Typography>Loading...</Typography>
+            </Box>
+          : pastObaData?.pages?.map((page: any, idx: number) => (
+              <Fragment key={ idx }>
+                {page?.result?.result?.map((value: any) => {
+                  return <Box key={value.id}>
+                    <ul style={{ color: '#fff' }}>
+                      <li
+                        style={{
+                          fontSize: '20px',
+                          fontWeight: 500
+                        }}
+                      >
+                        { value.fullName.toUpperCase() }
+                      </li>
+                      <Typography
+                        variant='body2'
+                      >
+                        { value.from } - { value.to }
+                      </Typography>
+                      <hr style={{ width: '10%' }}/>
+                    </ul>
+                  </Box>
+                })}
+              </Fragment>
+          ))
         }
           <Box
             sx={{

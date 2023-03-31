@@ -56,6 +56,7 @@ export const refreshToks = async (req: Request, res: Response, next: NextFunctio
       `${process.env.ACCESS_TOKEN_PRIVATE_KEY}`,
       { expiresIn: process.env.JWT_ACCESS_TOKEN_TIME_LIMIT }
     );
+    console.log(token)
     res.status(200).json({ token });
 };
 
