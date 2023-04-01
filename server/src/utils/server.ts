@@ -16,6 +16,7 @@ dotenv.config({ path: resolve(__dirname, "../.env") });
 export const corsOptions = {
   origin: [
     'http://localhost:3001',
+    'http://localhost:3002',
     'http://localhost:3000',
     'https://esun-ekiti-portal.onrender.com',
     'https://esun-ekiti-ui.onrender.com'

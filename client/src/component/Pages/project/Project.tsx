@@ -1,4 +1,3 @@
-import { RssFeed } from '@mui/icons-material';
 import {
   Box,
   Typography,

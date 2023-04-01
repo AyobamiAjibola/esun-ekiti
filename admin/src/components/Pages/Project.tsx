@@ -288,7 +288,7 @@ export default function Project () {
                         { value.project.toUpperCase() }
                       </Typography>
                     </Box>
-                    {decoded.role === 'admin' && <Box
+                    {decoded?.role === 'admin' && <Box
                       sx={{
                         width: '5%',
                         display: 'flex',

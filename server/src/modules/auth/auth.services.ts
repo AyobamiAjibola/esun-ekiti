@@ -75,6 +75,6 @@ export const logout = async (req: Request, res: Response, next: NextFunction) =>
 
 export const cookie = async (req: Request, res: Response, next: NextFunction) => {
 
-    const token = req.cookies['refreshToken'];
+    const token = req.cookies['refreshToken']
     return token
 };
