@@ -39,7 +39,6 @@ export default function Oba () {
     {
       networkMode: 'always',
       getNextPageParam: (_lastPage, pages) => {
-        console.log(pages, 'check')
         if (pages.length < pages[0]?.result?.totalPages) {
           return pages.length + 1 - 1
         } else {
@@ -48,7 +47,7 @@ export default function Oba () {
       }
     }
   )
-  console.log(pastObaData)
+  console.log(data)
   return (
     <Box
       sx={{
