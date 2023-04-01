@@ -22,7 +22,7 @@ export default function History () {
   useLayoutEffect(() => {
     document.body.style.backgroundColor = process.env.REACT_APP_BG_COLOR as string
   })
-
+  console.log(data)
   return (
     <>
       <Box
