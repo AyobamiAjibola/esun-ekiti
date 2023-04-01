@@ -47,7 +47,7 @@ export default function Oba () {
       }
     }
   )
-
+    console.log(pastObaData)
   return (
     <Box
       sx={{

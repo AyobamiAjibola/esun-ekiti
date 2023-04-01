@@ -80,10 +80,14 @@ export default function Home () {
       <Box className={classes.carousel}
         sx={{
           height: { lg: '550px', sm: '400px', xs: '300px' },
-          width: { sm: '75%', xs: '100%' }
+          width: '100%'
         }}
       >
-        <Box className={classes.rouse}>
+        <Box className={classes.rouse}
+          sx={{
+            width: {sm: "75%", xs: "100%"}
+          }}
+        >
           <Carousel />
         </Box>
       </Box>
