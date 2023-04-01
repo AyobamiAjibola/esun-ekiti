@@ -21,7 +21,7 @@ export default class Oba extends Model<InferAttributes<Oba>, InferCreationAttrib
     @Column(DataType.STRING)
     declare from: string;
 
-    @Column(DataType.STRING(1000))
+    @Column(DataType.STRING(10000))
     declare bio: string;
 
     @Column(DataType.STRING)
