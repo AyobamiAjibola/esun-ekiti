@@ -63,7 +63,7 @@ export const fetchObas = async (next: NextFunction, req: Request) => {
   const result = await Oba.findOne({ where: { oba: 'elesun' } });
 
     function limit (string = '', limit = 0) {
-      return string?.substring(0, limit)
+      return string ? string.substring(0, limit) : ''
     }
 
     const array = limit(result?.dataValues.bio, 400);
