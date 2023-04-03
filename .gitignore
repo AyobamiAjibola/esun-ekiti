@@ -119,7 +119,9 @@ typings/
 
 # production
 /build
-uploads
+# uploads
+# !uploads/
+
 
 
 # misc
