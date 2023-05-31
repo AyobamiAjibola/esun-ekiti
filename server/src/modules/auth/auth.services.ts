@@ -9,7 +9,7 @@ import { verifyRefreshToken } from "../../utils/verifyRefreshToken";
 import UserToken from "../../models/UserToken";
 import Admin from "../../models/Admin";
 
-export const adminLogin = async (res: Response, body: AuthType, next: NextFunction) => {
+export const adminLogin = async (body: AuthType, next: NextFunction) => {
     const { phone_num, password } = body;
 
     const user = await Admin?.findOne({ where: { phone_num } });
@@ -24,17 +24,18 @@ export const adminLogin = async (res: Response, body: AuthType, next: NextFuncti
     }
 
     const { token, refreshToken } = await jwtGenerator(user.dataValues);
+    // res.setHeader('Access-Control-Allow-Credentials', 'true');
+    // res.cookie('refreshToken', refreshToken, {
+    //   httpOnly: true,
+    //   maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
+    //   secure: false,
+    //   sameSite: 'none',
+    //   path:'/',
+    //   domain:'localhost',
+    //   expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
+    // });
 
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
-      secure: true,
-      sameSite: 'none',
-      path:'/',
-      domain: 'https://esun-ekiti-portal.onrender.com'
-    });
-
-    return {token};
+    return {token, refreshToken};
 };
 
 export const refreshToks = async (req: Request, res: Response, next: NextFunction) => {
@@ -75,6 +76,19 @@ export const logout = async (req: Request, res: Response, next: NextFunction) =>
 
 export const cookie = async (req: Request, res: Response, next: NextFunction) => {
 
-    const token = req.cookies['refreshToken']
-    return token
+    const cookies = req.headers.cookie;
+    if(cookies){
+      const cookieArray = cookies.split(';');
+
+      let refreshToken = null;
+      for (const cookie of cookieArray) {
+        const [name, value] = cookie.trim().split('=');
+        if (name === 'refreshToken') {
+          refreshToken = value;
+          break;
+        }
+      }
+
+      return refreshToken
+    }
 };

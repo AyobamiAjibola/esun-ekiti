@@ -27,8 +27,8 @@ export const corsOptions = {
 const createServer = () => {
   const app = express();
   app.use(express.json());
-  app.use(cookieParser() as express.RequestHandler);
   app.use(cors(corsOptions)); //handle cors operations
+  app.use(cookieParser() as express.RequestHandler);
   app.use(helmet({ crossOriginEmbedderPolicy: false }));
   app.use("/uploads", express.static("uploads"));
 

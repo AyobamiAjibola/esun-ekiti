@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getChief } from './api';
 
 const useChief = (pageNum = 1) => {

@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { useState, useEffect } from "react";
 import useRefreshToken from "../components/hooks/useRefreshToken";
 import useAuth from "../components/hooks/useAuth";
 import useLocalStorage from "../components/hooks/useLocalStorage";

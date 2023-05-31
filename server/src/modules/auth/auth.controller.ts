@@ -6,6 +6,26 @@ import * as authValidator from "./auth.validator";
 
 
 //= ============================== ADMIN ===============================//
+// const login_admin = async (req: Request, res: Response, next: NextFunction) => {
+//   try {
+//     const validate = authValidator.authLogin(req.body);
+//     if (validate.error) {
+//       return next(new AppError(validate.error.message, BAD_REQUEST));
+//     }
+
+//     const fetch = await adminLogin(res, req.body, next);
+//     const token = fetch?.token;
+
+//     res.status(OK).json({
+//       status: "success",
+//       message: "Login was successful.",
+//       token
+//     });
+
+//   } catch (error: any) {
+//     return next(new AppError(error.message, BAD_REQUEST));
+//   }
+// };
 const login_admin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const validate = authValidator.authLogin(req.body);
@@ -13,15 +33,41 @@ const login_admin = async (req: Request, res: Response, next: NextFunction) => {
       return next(new AppError(validate.error.message, BAD_REQUEST));
     }
 
-    const fetch = await adminLogin(res, req.body, next);
-    const token = fetch?.token;
+    //@ts-ignore
+    const { token, refreshToken } = await adminLogin(req.body, next);
+
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+    const cookieOptions = {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      secure: false,
+      sameSite: 'none',
+      path: '/',
+      domain: 'localhost',
+      expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+    };
+
+    const cookieString = `refreshToken=${refreshToken}; ${Object.entries(cookieOptions)
+      .map(([key, value]) => `${key}=${value}`)
+      .join('; ')}`;
+
+    res.setHeader('Set-Cookie', cookieString);
+    // res.cookie('refreshToken', refreshToken, {
+    //   httpOnly: true,
+    //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    //   secure: false,
+    //   sameSite: 'none',
+    //   path: '/',
+    //   domain: 'localhost',
+    //   expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+    // });
 
     res.status(OK).json({
       status: "success",
       message: "Login was successful.",
       token
     });
-
   } catch (error: any) {
     return next(new AppError(error.message, BAD_REQUEST));
   }
@@ -57,11 +103,10 @@ const logout_user = async (req: Request, res: Response, next: NextFunction) => {
 const get_cookie = async (req: Request, res: Response, next: NextFunction) => {
   try {
 
-    const cookies = await cookie(req, res, next)
-
+    const cookies = await cookie(req, res, next);
     res.status(200).json({
       error: false,
-      cookies
+      cookie: cookies
     });
 
   } catch (error: any) {

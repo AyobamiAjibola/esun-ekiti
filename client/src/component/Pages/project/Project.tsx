@@ -1,3 +1,4 @@
+import React, { useLayoutEffect, Fragment } from 'react';
 import {
   Box,
   Typography,
@@ -6,7 +7,6 @@ import {
 } from '@mui/material';
 import axios from '../../../interceptor/axios';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useLayoutEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import ErrorPage from '../../helpers/ErrorPage';
 import InfinitScrollBtn from '../../helpers/InfinitScrollBtn';

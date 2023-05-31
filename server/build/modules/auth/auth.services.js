@@ -35,10 +35,10 @@ const adminLogin = (res, body, next) => __awaiter(void 0, void 0, void 0, functi
     res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        secure: true,
+        secure: false,
         sameSite: 'none',
         path: '/',
-        domain: 'https://esun-ekiti-portal.onrender.com'
+        domain: 'localhost'
     });
     return { token };
 });
@@ -53,6 +53,7 @@ const refreshToks = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         role: req.data.role
     };
     const token = jsonwebtoken_1.default.sign(payload, `${process.env.ACCESS_TOKEN_PRIVATE_KEY}`, { expiresIn: process.env.JWT_ACCESS_TOKEN_TIME_LIMIT });
+    console.log(token);
     res.status(200).json({ token });
 });
 exports.refreshToks = refreshToks;

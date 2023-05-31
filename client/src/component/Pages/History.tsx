@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import axios from '../../interceptor/axios';
 import { useQuery } from '@tanstack/react-query';
-import { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Modal from './modal/Modal';
 import { motion } from 'framer-motion';
 import ErrorPage from '../helpers/ErrorPage';

@@ -1,3 +1,4 @@
+import React, { useLayoutEffect } from 'react';
 import {
   Stack,
   Box,
@@ -11,7 +12,6 @@ import Carousel from '../helpers/Carousel';
 import { Link } from 'react-router-dom';
 import axios from '../../interceptor/axios';
 import { useQuery } from '@tanstack/react-query';
-import { useLayoutEffect } from 'react';
 import ErrorPage from '../helpers/ErrorPage';
 import '../Navbar/style.css';
 
@@ -215,7 +215,7 @@ export default function Home () {
                               }}
                             >
                             {data?.data?.data?.info?.image && <img //eslint-disable-line
-                              src={`http://localhost:5000/uploads/${data?.data?.data?.info?.image[0]}`} //eslint-disable-line
+                              src={ process.env.REACT_APP_IMG_URL + data?.data?.data?.info?.image[0] } //eslint-disable-line
                               crossOrigin="anonymous"
                               alt='esun-news'
                               style={{
@@ -233,7 +233,7 @@ export default function Home () {
                               }}
                             >
                             {data?.data?.data?.info?.image && <img //eslint-disable-line
-                              src={`http://localhost:5000/uploads/${data?.data?.data?.info?.image[1]}`} //eslint-disable-line
+                              src={ process.env.REACT_APP_IMG_URL + data?.data?.data?.info?.image[1] } //eslint-disable-line
                               crossOrigin="anonymous"
                               alt='esun-news'
                               style={{
@@ -335,7 +335,7 @@ export default function Home () {
                               }}
                             >
                               <img
-                                src={`http://localhost:5000/uploads/${val.image[0]}`} //eslint-disable-line
+                                src={ process.env.REACT_APP_IMG_URL + val.image[0] } //eslint-disable-line
                                 crossOrigin="anonymous"
                                 alt='esun-news'
                                 style={{
@@ -481,7 +481,7 @@ export default function Home () {
                             }}
                           >
                             <img
-                              src={`http://localhost:5000/uploads/${val.image[0]}`} //eslint-disable-line
+                              src={process.env.REACT_APP_IMG_URL + val.image[0]} //eslint-disable-line
                               crossOrigin="anonymous"
                               alt='esun-news'
                               style={{

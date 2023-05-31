@@ -27,7 +27,7 @@ __decorate([
     __metadata("design:type", String)
 ], Oba.prototype, "from", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(1000)),
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING(10000)),
     __metadata("design:type", String)
 ], Oba.prototype, "bio", void 0);
 __decorate([

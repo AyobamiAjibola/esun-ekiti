@@ -1,4 +1,5 @@
 /* eslint-disable */
+import React from 'react';
 import { Outlet, Navigate, useLocation } from "react-router-dom";
 import useAuth from "../components/hooks/useAuth";
 import jwt_decode from "jwt-decode";

@@ -54,7 +54,7 @@ exports.readSingleOba = readSingleOba;
 const fetchObas = (next, req) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield Oba_1.default.findOne({ where: { oba: 'elesun' } });
     function limit(string = '', limit = 0) {
-        return string.substring(0, limit);
+        return string === null || string === void 0 ? void 0 : string.substring(0, limit);
     }
     const array = limit(result === null || result === void 0 ? void 0 : result.dataValues.bio, 400);
     return { result, array };

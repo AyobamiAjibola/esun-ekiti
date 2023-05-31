@@ -20,16 +20,18 @@ dotenv_1.default.config({ path: (0, path_1.resolve)(__dirname, "../.env") });
 exports.corsOptions = {
     origin: [
         'http://localhost:3001',
+        'http://localhost:3002',
         'http://localhost:3000',
-        'https://esun-ekiti-portal.onrender.com'
+        'https://esun-ekiti-portal.onrender.com',
+        'https://esun-ekiti-ui.onrender.com'
     ],
     credentials: true,
 };
 const createServer = () => {
     const app = (0, express_1.default)();
     app.use(express_1.default.json());
-    app.use((0, cookie_parser_1.default)());
     app.use((0, cors_1.default)(exports.corsOptions));
+    app.use((0, cookie_parser_1.default)());
     app.use((0, helmet_1.default)({ crossOriginEmbedderPolicy: false }));
     app.use("/uploads", express_1.default.static("uploads"));
     (0, endpoint_1.default)(app);

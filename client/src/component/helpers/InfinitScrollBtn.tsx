@@ -1,6 +1,6 @@
+import React, { useEffect } from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useInView } from 'react-intersection-observer';
-import { useEffect } from 'react';
 
 interface InfinitScrollProps {
   fetchNextPage: any

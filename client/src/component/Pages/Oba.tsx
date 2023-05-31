@@ -1,3 +1,4 @@
+import React, { useLayoutEffect, Fragment } from 'react';
 import {
   Stack,
   Box,
@@ -7,7 +8,6 @@ import {
 } from '@mui/material';
 import axios from '../../interceptor/axios';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { useLayoutEffect, Fragment } from 'react';
 import ErrorPage from '../helpers/ErrorPage';
 
 const fetchOba = async () => {
@@ -47,7 +47,7 @@ export default function Oba () {
       }
     }
   )
-  console.log(data)
+
   return (
     <Box
       sx={{

@@ -1,8 +1,8 @@
+import React, { useLayoutEffect } from 'react';
 import RegisterUser from "./RegisterUser";
 import jwt_decode from "jwt-decode";
 import useAuth from "../hooks/useAuth";
 import Unauthorized from "./Unauthorized";
-import { useLayoutEffect } from 'react';
 
 export default function Users () {
   const { auth } = useAuth();
@@ -17,7 +17,7 @@ export default function Users () {
 
   return (
     <>
-      { decoded.role === "admin" ? <RegisterUser /> : <Unauthorized /> }
+      { decoded?.role === "admin" ? <RegisterUser /> : <Unauthorized /> }
     </>
   )
 }

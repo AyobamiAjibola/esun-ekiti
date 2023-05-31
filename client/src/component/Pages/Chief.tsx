@@ -1,3 +1,4 @@
+import React, { useLayoutEffect, useState, Fragment } from 'react';
 import {
   Divider,
   Box,
@@ -7,7 +8,6 @@ import {
 } from '@mui/material';
 import axios from '../../interceptor/axios';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { useLayoutEffect, useState, Fragment } from 'react';
 import Modal from './modal/Modal';
 import { motion } from 'framer-motion';
 import ErrorPage from '../helpers/ErrorPage';
