@@ -118,7 +118,7 @@ typings/
 /coverage
 
 # production
-/build
+#/build
 # uploads
 # !uploads/
 
