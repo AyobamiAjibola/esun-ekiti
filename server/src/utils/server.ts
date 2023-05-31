@@ -15,8 +15,8 @@ dotenv.config({ path: resolve(__dirname, "../.env") });
 
 export const corsOptions = {
   origin: [
-    <string>process.env.CLIENT_URL,
-    <string>process.env.ADMIN_URL
+    'http://localhost:3000',
+    'http://localhost:3001'
   ],
   credentials: true,
 };
