@@ -118,8 +118,9 @@ typings/
 /coverage
 
 # production
-# uploads
-# !uploads/
+uploads/
+/uploads
+#!uploads/
 
 
 
@@ -143,6 +144,7 @@ yarn-error.log*
 /tmp
 tmp/
 dist/
+build/
 /dist
 /public
 **/public
