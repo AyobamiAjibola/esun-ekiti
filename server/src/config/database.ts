@@ -12,11 +12,11 @@ import settings from './settings';
 const env = process.env.NODE_ENV as DatabaseEnv;
 
 const postgresConfig = settings.postgres[env];
-const db = "esun1"
+
 const models = path.resolve(__dirname, '../models');
 
-if (db) {
-    const namespace = createNamespace(db);
+if (postgresConfig.database) {
+    const namespace = createNamespace(postgresConfig.database);
 
     Sequelize.useCLS(namespace);
 }
