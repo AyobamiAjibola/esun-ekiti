@@ -21,7 +21,7 @@ const auth_1 = require("../../utils/auth");
 const verifyRefreshToken_1 = require("../../utils/verifyRefreshToken");
 const UserToken_1 = __importDefault(require("../../models/UserToken"));
 const Admin_1 = __importDefault(require("../../models/Admin"));
-const adminLogin = (res, body, next) => __awaiter(void 0, void 0, void 0, function* () {
+const adminLogin = (body, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { phone_num, password } = body;
     const user = yield (Admin_1.default === null || Admin_1.default === void 0 ? void 0 : Admin_1.default.findOne({ where: { phone_num } }));
     if (!user || user === null) {
@@ -32,15 +32,7 @@ const adminLogin = (res, body, next) => __awaiter(void 0, void 0, void 0, functi
         return next(new appError_1.default("Invalid phone number or password", response_codes_1.BAD_REQUEST));
     }
     const { token, refreshToken } = yield (0, jwtGenerator_1.jwtGenerator)(user.dataValues);
-    res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-        secure: false,
-        sameSite: 'none',
-        path: '/',
-        domain: 'localhost'
-    });
-    return { token };
+    return { token, refreshToken };
 });
 exports.adminLogin = adminLogin;
 const refreshToks = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -69,8 +61,19 @@ const logout = (req, res, next) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.logout = logout;
 const cookie = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const token = req.cookies['refreshToken'];
-    return token;
+    const cookies = req.headers.cookie;
+    if (cookies) {
+        const cookieArray = cookies.split(';');
+        let refreshToken = null;
+        for (const cookie of cookieArray) {
+            const [name, value] = cookie.trim().split('=');
+            if (name === 'refreshToken') {
+                refreshToken = value;
+                break;
+            }
+        }
+        return refreshToken;
+    }
 });
 exports.cookie = cookie;
 //# sourceMappingURL=auth.services.js.map

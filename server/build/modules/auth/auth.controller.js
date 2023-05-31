@@ -45,8 +45,21 @@ const login_admin = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         if (validate.error) {
             return next(new appError_1.default(validate.error.message, response_codes_1.BAD_REQUEST));
         }
-        const fetch = yield (0, auth_services_1.adminLogin)(res, req.body, next);
-        const token = fetch === null || fetch === void 0 ? void 0 : fetch.token;
+        const { token, refreshToken } = yield (0, auth_services_1.adminLogin)(req.body, next);
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+        const cookieOptions = {
+            httpOnly: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            secure: false,
+            sameSite: 'none',
+            path: '/',
+            domain: 'localhost',
+            expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+        };
+        const cookieString = `refreshToken=${refreshToken}; ${Object.entries(cookieOptions)
+            .map(([key, value]) => `${key}=${value}`)
+            .join('; ')}`;
+        res.setHeader('Set-Cookie', cookieString);
         res.status(response_codes_1.OK).json({
             status: "success",
             message: "Login was successful.",
@@ -82,7 +95,7 @@ const get_cookie = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         const cookies = yield (0, auth_services_1.cookie)(req, res, next);
         res.status(200).json({
             error: false,
-            cookies
+            cookie: cookies
         });
     }
     catch (error) {
