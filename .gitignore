@@ -144,6 +144,7 @@ yarn-error.log*
 /tmp
 tmp/
 dist/
+/build
 build/
 /dist
 /public
