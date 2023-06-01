@@ -47,19 +47,7 @@ const login_admin = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         }
         const { token, refreshToken } = yield (0, auth_services_1.adminLogin)(req.body, next);
         res.setHeader('Access-Control-Allow-Credentials', 'true');
-        const cookieOptions = {
-            httpOnly: true,
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-            secure: false,
-            sameSite: 'none',
-            path: '/',
-            domain: 'localhost',
-            expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
-        };
-        const cookieString = `refreshToken=${refreshToken}; ${Object.entries(cookieOptions)
-            .map(([key, value]) => `${key}=${value}`)
-            .join('; ')}`;
-        res.setHeader('Set-Cookie', cookieString);
+        res.cookie('refreshToken', refreshToken);
         res.status(response_codes_1.OK).json({
             status: "success",
             message: "Login was successful.",
