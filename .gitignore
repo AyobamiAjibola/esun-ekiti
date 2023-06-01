@@ -144,8 +144,12 @@ yarn-error.log*
 /tmp
 tmp/
 dist/
+<<<<<<< HEAD
 /build
 build/
+=======
+#build/
+>>>>>>> 2f5004f979dcd170fe46d0cd78020b6abbd6d170
 /dist
 /public
 **/public
