@@ -82,7 +82,7 @@ const style = {
   flexDirection: "column",
   p: '20px 0'
 };
-
+"http://localhost:5000"
 export default function EditNews () {
   const classes = useStyles();
   const { id } = useParams();
@@ -256,7 +256,7 @@ export default function EditNews () {
                         </IconButton>
                         </Tooltip>
                         <img
-                          src={`http://localhost:5000/uploads/${value}`}
+                          src={ process.env.REACT_APP_IMG_URL + value }
                           crossOrigin="anonymous"
                           alt='img'
                           style={{

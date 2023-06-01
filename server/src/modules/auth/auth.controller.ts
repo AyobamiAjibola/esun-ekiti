@@ -36,7 +36,35 @@ const login_admin = async (req: Request, res: Response, next: NextFunction) => {
     //@ts-ignore
     const { token, refreshToken } = await adminLogin(req.body, next);
 
+<<<<<<< HEAD
     res.cookie('refreshToken', refreshToken)
+=======
+    // res.setHeader('Access-Control-Allow-Credentials', 'true');
+    // const expiresDate = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
+    // const expiresFormatted = expiresDate.toUTCString();
+    // const cookieOptions = [
+    //   `HttpOnly`,
+    //   `Path=/`,
+    //   `Secure=false`,
+    //   `SameSite=none`,
+    //   `Domain=${process.env.BASE_URL}`,
+    //   `Expires=${expiresFormatted}`
+    // ];
+    // const cookieString = `refreshToken=${refreshToken}; ${cookieOptions.join('; ')}`;
+    // const cookieString = `refreshToken=${refreshToken}; ${Object.entries(cookieOptions)
+    //   .map(([key, value]) => `${key}=${value}`)
+    //   .join('; ')}`;
+
+    // res.setHeader('Set-Cookie', cookieString);
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: '/',
+      domain: process.env.BASE_URL,
+      expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+    });
+
+>>>>>>> 5b2a26bcb88f5e4ae99746a57348da2381910d5f
     res.status(OK).json({
       status: "success",
       message: "Login was successful.",

@@ -267,7 +267,7 @@ export default function EditProject () {
                         </IconButton>
                         </Tooltip>
                         <img
-                            src={`http://localhost:5000/uploads/${value}`}
+                            src={ process.env.REACT_APP_IMG_URL + value }
                             crossOrigin="anonymous"
                             alt='img'
                             style={{
