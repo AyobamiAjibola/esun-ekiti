@@ -35,7 +35,7 @@ export default function Login () {
     criteriaMode: 'firstError',
     reValidateMode: 'onBlur'
   });
-
+  console.log(process.env.REACT_APP_BASE_URL, 'env')
   const onSubmit: SubmitHandler<Inputs> = async (data: any) => { // eslint-disable-line
     try {
       setIsLoading(true)

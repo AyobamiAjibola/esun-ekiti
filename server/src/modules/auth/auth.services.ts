@@ -24,16 +24,6 @@ export const adminLogin = async (body: AuthType, next: NextFunction) => {
     }
 
     const { token, refreshToken } = await jwtGenerator(user.dataValues);
-    // res.setHeader('Access-Control-Allow-Credentials', 'true');
-    // res.cookie('refreshToken', refreshToken, {
-    //   httpOnly: true,
-    //   maxAge: 7 * 24 * 60 * 60 * 1000, //7 days
-    //   secure: false,
-    //   sameSite: 'none',
-    //   path:'/',
-    //   domain:'localhost',
-    //   expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000)
-    // });
 
     return {token, refreshToken};
 };
@@ -76,19 +66,21 @@ export const logout = async (req: Request, res: Response, next: NextFunction) =>
 
 export const cookie = async (req: Request, res: Response, next: NextFunction) => {
 
-    const cookies = req.headers.cookie;
-    if(cookies){
-      const cookieArray = cookies.split(';');
+    const cookie = req.cookies['refreshToken'];
+    // const cookies = req.headers.cookie;
+    // if(cookies){
+    //   const cookieArray = cookies.split(';');
 
-      let refreshToken = null;
-      for (const cookie of cookieArray) {
-        const [name, value] = cookie.trim().split('=');
-        if (name === 'refreshToken') {
-          refreshToken = value;
-          break;
-        }
-      }
+    //   let refreshToken = null;
+    //   for (const cookie of cookieArray) {
+    //     const [name, value] = cookie.trim().split('=');
+    //     if (name === 'refreshToken') {
+    //       refreshToken = value;
+    //       break;
+    //     }
+    //   }
 
-      return refreshToken
-    }
+    //   return refreshToken
+    // }
+    return cookie;
 };

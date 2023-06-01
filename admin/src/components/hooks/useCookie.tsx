@@ -32,7 +32,7 @@ export default function useCookie () {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get('http://localhost:5000/auth/get_cookie', {
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}auth/get_cookie`, {
           withCredentials: true,
         });
 

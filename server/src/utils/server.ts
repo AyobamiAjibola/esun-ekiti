@@ -16,7 +16,9 @@ dotenv.config({ path: resolve(__dirname, "../.env") });
 export const corsOptions = {
   origin: [
     'http://localhost:3000',
-    'http://localhost:3001'
+    'http://localhost:3001',
+    'http://18.117.9.206:8083',
+    'http://18.117.9.206:8084'
   ],
   credentials: true,
 };
