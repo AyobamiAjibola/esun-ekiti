@@ -20,11 +20,17 @@ export default function Nav () {
 
   return (
     <>
-      <nav id='navy' style={{ backgroundColor: 'white', overflow: 'hidden' }}>
+      <nav id='navy'
+        style={{
+          backgroundColor: 'white',
+          overflow: 'hidden'
+        }}
+      >
         <Link to='/' id="logo"
           style={{
             marginTop: '-1rem',
-            marginBottom: '-1rem'
+            marginBottom: '-1rem',
+            width: '50%'
           }}
         >
           <img

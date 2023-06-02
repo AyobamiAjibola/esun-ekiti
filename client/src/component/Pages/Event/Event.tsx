@@ -121,11 +121,11 @@ export default function Event () {
                           return <Box
                             sx={{
                               width: '90%',
-                              height: '12rem',
+                              height: {md: '12rem', xs: '18rem'},
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
-                              flexDirection: 'row',
+                              flexDirection: {md: 'row', xs: 'column'},
                               margin: '0 0 20px',
                               backgroundColor: 'white',
                               boxShadow: 2,
@@ -137,8 +137,8 @@ export default function Event () {
                           >
                             <Box
                               sx={{
-                                width: '30%',
-                                height: '100%'
+                                width: {md: '30%', xs: '100%'},
+                                height: {md: '100%', xs: '70%'}
                               }}
                             >
                               <img
@@ -154,9 +154,10 @@ export default function Event () {
                             </Box>
                             <Box
                               sx={{
-                                width: '70%',
-                                height: '100%',
-                                paddingLeft: '25px'
+                                width: {md: '70%', xs: '100%'},
+                                height: {md: '100%', xs: '30%'},
+                                paddingLeft: {md: '25px', xs: '0px'},
+                                ml: {md: '0px', xs: '10px'}
                               }}
                             >
                               <Typography
@@ -164,12 +165,32 @@ export default function Event () {
                                   fontSize: '20px',
                                   fontWeight: 600,
                                   margin: '8px 0',
+                                  display: { md: 'block', xs: 'none' },
                                   color: `${process.env.REACT_APP_MAIN_COLOR as string}`
                                 }}
                               >
                                 { value.name }
                               </Typography>
                               <Typography
+                                sx={{
+                                  fontSize: '18px',
+                                  fontWeight: 600,
+                                  margin: '8px 0',
+                                  textAlign: 'center',
+                                  display: { md: 'none', xs: 'block' },
+                                  color: `${process.env.REACT_APP_MAIN_COLOR as string}`,
+                                  '&:hover': {
+                                    color: '#E59A59',
+                                    textDecorationLine: 'underline'
+                                  },
+                                  textDecoration: 'none'
+                                }}
+                                component={Link}
+                                to={`/event/${value.name.toLowerCase()}`} //eslint-disable-line
+                              >
+                                { value.name }
+                              </Typography>
+                              {document.documentElement.clientWidth > 769 && <Typography
                                 sx={{
                                   fontSize: '15px',
                                   wordSpacing: '5px',
@@ -179,12 +200,13 @@ export default function Event () {
                                 }}
                               >
                                 { value.detail }
-                              </Typography>
-                              <Box
+                              </Typography>}
+                              {document.documentElement.clientWidth > 769 && <Box
                                 sx={{
                                   display: 'flex',
                                   justifyContent: 'space-between',
-                                  alignItems: 'flex-end'
+                                  alignItems: 'flex-end',
+                                  ml: {md: '0px', xs: '10px'}
                                 }}
                               >
                                 <Typography
@@ -202,7 +224,7 @@ export default function Event () {
                                 >
                                   [ ...Continue reading ]
                                 </Typography>
-                              </Box>
+                              </Box>}
                             </Box>
                           </Box>
                         })}

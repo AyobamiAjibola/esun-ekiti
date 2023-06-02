@@ -95,12 +95,11 @@ export default function Oba () {
                   height: '45rem',
                   marginTop: '20px',
                   mb: 2,
-                  backgroundColor: process.env.REACT_APP_BG_COLOR as string,
+                  backgroundColor: process.env.REACT_APP_BG_COLOR_2 as string,
                   borderRadius: '5px',
                   boxShadow: 4,
                   pt: 4,
-                  pr: 4,
-                  pl: 4,
+                  px: 4,
                   pb: { sm: '0rem', xs: '2rem' }
                 }}
               >

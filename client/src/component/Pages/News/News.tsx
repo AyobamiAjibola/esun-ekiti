@@ -77,22 +77,23 @@ export default function News () {
               height: '5rem'
             }}
           >
+            <>
             <Typography
-              variant='h3'
               sx={{
-                fontWeight: 600,
+                fontWeight: 600, fontSize: {xs: '1.5rem', md: '3rem'},
                 color: process.env.REACT_APP_MAIN_COLOR as string
               }}
             >
               Recent News
-              <RssFeed
-                sx={{
-                  color: process.env.REACT_APP_HOVER_COLOR as string,
-                  mb: '5px',
-                  fontSize: '3rem'
-                }}
-              />
             </Typography>
+            <RssFeed
+              sx={{
+                color: process.env.REACT_APP_HOVER_COLOR as string,
+                mb: '5px',
+                fontSize: {md: '3rem', xs: '1.5rem'}
+              }}
+            />
+            </>
           </Box>
           {status === 'loading'
             ? (
@@ -129,11 +130,11 @@ export default function News () {
                           return <Box
                             sx={{
                               width: '90%',
-                              height: '12rem',
+                              height: {md: '12rem', xs: '18rem'},
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
-                              flexDirection: 'row',
+                              flexDirection: {md: 'row', xs: 'column'},
                               margin: '0 0 20px',
                               backgroundColor: 'white',
                               boxShadow: 2,
@@ -145,8 +146,8 @@ export default function News () {
                           >
                             <Box
                               sx={{
-                                width: '30%',
-                                height: '100%'
+                                width: {md: '30%', xs: '100%'},
+                                height: {md: '100%', xs: '70%'}
                               }}
                             >
                               <img
@@ -162,9 +163,10 @@ export default function News () {
                             </Box>
                             <Box
                               sx={{
-                                width: '70%',
-                                height: '100%',
-                                paddingLeft: '25px'
+                                width: {md: '70%', xs: '100%'},
+                                height: {md: '100%', xs: '30%'},
+                                paddingLeft: {md: '25px', xs: '0px'},
+                                ml: {md: '0px', xs: '10px'}
                               }}
                             >
                               <Typography
@@ -172,12 +174,32 @@ export default function News () {
                                   fontSize: '20px',
                                   fontWeight: 600,
                                   margin: '8px 0',
+                                  display: { md: 'block', xs: 'none' },
                                   color: `${process.env.REACT_APP_MAIN_COLOR as string}`
                                 }}
                               >
                                 { value.title }
                               </Typography>
                               <Typography
+                                sx={{
+                                  fontSize: '18px',
+                                  fontWeight: 600,
+                                  margin: '8px 0',
+                                  textAlign: 'center',
+                                  display: { md: 'none', xs: 'block' },
+                                  color: `${process.env.REACT_APP_MAIN_COLOR as string}`,
+                                  '&:hover': {
+                                    color: '#E59A59',
+                                    textDecorationLine: 'underline'
+                                  },
+                                  textDecoration: 'none'
+                                }}
+                                component={Link}
+                                to={`/news/${value.id}`} //eslint-disable-line
+                              >
+                                { value.title }
+                              </Typography>
+                              {document.documentElement.clientWidth > 769 && <Typography
                                 sx={{
                                   fontSize: '15px',
                                   wordSpacing: '5px',
@@ -187,12 +209,23 @@ export default function News () {
                                 }}
                               >
                                 { value?.news }
-                              </Typography>
+                              </Typography>}
                               <Box
+                                sx={{
+                                  display: {md: 'none', xs: 'flex'},
+                                  justifyContent: 'right',
+                                  alignItems: 'flex-end',
+                                  mt: {sm: 4, xs: 0}
+                                }}
+                              >
+                                <Typography sx={{ fontWeight: 600, fontSize: '12px' }}>posted on: { value.createdAt }</Typography>
+                              </Box>
+                              {document.documentElement.clientWidth > 769 && <Box
                                 sx={{
                                   display: 'flex',
                                   justifyContent: 'space-between',
-                                  alignItems: 'flex-end'
+                                  alignItems: 'flex-end',
+                                  ml: {md: '0px', xs: '10px'}
                                 }}
                               >
                                 <Typography
@@ -208,10 +241,10 @@ export default function News () {
                                   component={Link}
                                   to={`/news/${value.id}`} //eslint-disable-line
                                 >
-                                  [ ...Continue reading ]
+                                    [ ...Continue reading ]
                                 </Typography>
                                 <Typography sx={{ fontWeight: 600, fontSize: '12px' }}>posted on: { value.createdAt }</Typography>
-                              </Box>
+                              </Box>}
                             </Box>
                           </Box>
                         })}

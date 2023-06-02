@@ -126,27 +126,23 @@ export default function Project () {
                               alignItems: 'center',
                               flexDirection: 'column',
                               margin: '0 0 20px',
-                              pt: 2,
                               borderBottom: `4px solid ${process.env.REACT_APP_MAIN_COLOR as string}`,
                               borderRadius: '5px',
-                              boxShadow: '4',
+                              boxShadow: '2',
                               backgroundColor: 'white'
                             }}
                             key={ value.id }
                           >
                             <Box
                               sx={{
-                                width: { lg: '20%', md: '25%', xs: '60%' },
-                                height: { md: '55%', xs: '65%' },
-                                borderRadius: { md: '50%', xs: '5%' },
-                                boxShadow: 5,
-                                border: `4px solid ${process.env.REACT_APP_MAIN_COLOR as string}`
+                                width: {md: '30%', xs: '100%'},
+                                height: {md: '100%', xs: '70%'}
                               }}
                             >
                               <img
                                 src={ process.env.REACT_APP_IMG_URL + value.image } //eslint-disable-line
                                 crossOrigin="anonymous"
-                                alt='news'
+                                alt='project'
                                 style={{
                                   width: '100%',
                                   height: '100%',
@@ -156,20 +152,18 @@ export default function Project () {
                             </Box>
                             <Box
                               sx={{
-                                width: '90%',
-                                height: { md: '45%', xs: '35%' },
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                flexDirection: 'column'
+                                width: {md: '70%', xs: '100%'},
+                                height: {md: '100%', xs: '30%'},
+                                paddingLeft: {md: '25px', xs: '0px'},
+                                ml: {md: '0px', xs: '10px'}
                               }}
                             >
                               <Typography
                                 sx={{
-                                  fontSize: '18px',
+                                  fontSize: '20px',
                                   fontWeight: 600,
-                                  margin: '5px 0',
-                                  textAlign: 'center',
+                                  margin: '8px 0',
+                                  // textAlign: 'center',
                                   display: { md: 'block', xs: 'none' },
                                   color: `${process.env.REACT_APP_MAIN_COLOR as string}`
                                 }}
@@ -181,7 +175,7 @@ export default function Project () {
                                   fontSize: '15px',
                                   fontWeight: 600,
                                   color: `${process.env.REACT_APP_MAIN_COLOR as string}`,
-                                  margin: '5px 0',
+                                  margin: '8px 0',
                                   textAlign: 'center',
                                   display: { md: 'none', xs: 'block' },
                                   '&:hover': {
@@ -202,7 +196,7 @@ export default function Project () {
                                   lineHeight: 1.5,
                                   color: '#585858',
                                   margin: '8px 0',
-                                  textAlign: 'center',
+                                  // textAlign: 'center',
                                   display: { md: 'block', xs: 'none' }
                                 }}
                               >

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import {
   Tabs,
   Tab,
-  Box
+  Box,
+  tabsClasses
 }
   from '@mui/material';
 import { makeStyles } from "@material-ui/core";
@@ -68,7 +69,7 @@ export default function Council () {
   };
 
   const classes = useStyles();
-
+  const screenWidth = document.documentElement.clientWidth
   return (
     <Box sx={{ width: '100%', backgroundColor: 'white' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -76,14 +77,24 @@ export default function Council () {
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
+          variant={screenWidth <= 450 ? "scrollable" : undefined}
+          scrollButtons
           centered
-          textColor="primary"
-          indicatorColor="primary"
-          sx={{ marginTop: '2rem' }}
+          sx={{
+            marginTop: '2rem',
+            [`& .${tabsClasses.scrollButtons}`]: {
+              '&.Mui-disabled': { opacity: {sm: 0, xs: 0} },
+            },
+          }}
+          allowScrollButtonsMobile
+          // textColor="primary"
+          // indicatorColor="primary"
         >
           <Tab label="ELESUN OF ESUN" {...a11yProps(0)} className={ classes.title }/>
           <Tab label="TRADITIONAL COUNCIL" {...a11yProps(1)} className={ classes.title }/>
-          <Tab label="ADMINISTRATIVE STRUCTURE" {...a11yProps(2)} className={ classes.title }/>
+          <Tab label="ADMINISTRATIVE STRUCTURE" {...a11yProps(2)} className={ classes.title }
+            sx={{display: {xs: 'none', md: 'block'}}}
+          />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>

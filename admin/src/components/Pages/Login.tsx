@@ -90,7 +90,7 @@ export default function Login () {
         }}
       >
         <Typography sx={{ fontWeight: 500, fontSize: '20px', textAlign: 'center', color: 'white', p: 4 }}>
-          Omo afowo bokole,
+          Omo afowo bokole, Omo asun si le la
         </Typography>
       </Box>
 
@@ -307,7 +307,7 @@ export default function Login () {
         }}
       >
         <Typography sx={{ fontWeight: 500, fontSize: '20px', textAlign: 'center', color: 'white', p: 4 }}>
-          Omo afowo bokole, fsfseew werf werewr werwe rwerew rwer wer ew r wer we rwerewrew
+          Omo afowo bokole, Omo asun si le la
         </Typography>
       </Box>
     </Box>
