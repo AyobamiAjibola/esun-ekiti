@@ -128,9 +128,8 @@ export default function Home () {
                 }}
               >
                 <Typography
-                    variant='h3'
                     sx={{
-                      fontWeight: '800',
+                      fontWeight: '800', fontSize: {xs: '2rem', md: '3rem'},
                       paddingBottom: '35px',
                       color: '#712E1E'
                     }}

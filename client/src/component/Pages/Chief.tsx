@@ -119,7 +119,7 @@ export default function Chief () {
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
-                              flexDirection: { sm: 'column', xs: 'row' }
+                              flexDirection: 'column'
                             }}
                           >
                             <Box
@@ -170,7 +170,7 @@ export default function Chief () {
                                 sx={{
                                   fontWeight: 600,
                                   color: process.env.REACT_APP_MAIN_COLOR as string,
-                                  fontSize: { lg: '18px', md: '15px', xs: '12px' },
+                                  fontSize: { lg: '18px', xs: '15px' },
                                   textAlign: 'center'
                                 }}
                               >
@@ -253,14 +253,14 @@ function Olori ({ setSelectedImg }: Props) {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                flexDirection: { sm: 'column', xs: 'row' }
+                flexDirection: 'column'
               }}
             >
               <Box
                 component={ motion.div }
                 whileHover={{ opacity: 0.5 }}
                 sx={{
-                  width: '100%',
+                  width: {lg: '80%', xs: '100%'},
                   height: { sm: '80%', xs: '100%' },
                   display: 'flex',
                   justifyContent: 'center',
@@ -290,7 +290,7 @@ function Olori ({ setSelectedImg }: Props) {
                   sx={{
                     fontWeight: 600,
                     color: process.env.REACT_APP_MAIN_COLOR as string,
-                    fontSize: { lg: '18px', md: '15px', xs: '12px' },
+                    fontSize: { lg: '18px', xs: '15px' },
                     textAlign: 'center'
                   }}
                 >
@@ -301,7 +301,7 @@ function Olori ({ setSelectedImg }: Props) {
                     color: '#585858',
                     fontWeight: 400,
                     fontSize: {
-                      lg: '16px', md: '13px', sm: '11px'
+                      lg: '16px', md: '13px', sm: '13px'
                     },
                     textAlign: 'center'
                   }}

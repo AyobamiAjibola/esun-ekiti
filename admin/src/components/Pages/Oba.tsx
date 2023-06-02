@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column'
   },
   first: {
-    width: "80%",
     height: "auto",
     display: 'flex',
     alignItems: 'center',
@@ -38,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column'
   },
   second: {
-    width: "80%",
     height: "auto",
     display: 'flex',
     alignItems: 'center',
@@ -388,7 +386,11 @@ export default function Oba () {
   return (
     <>
       <Box className={classes.wrapper}>
-        <Box className={classes.first}>
+        <Box className={classes.first}
+          sx={{
+            width: {xs: '100%', md: '80%'}
+          }}
+        >
           <Box
             sx={{
               width: "100%",
@@ -478,7 +480,7 @@ export default function Oba () {
                           crossOrigin="anonymous"
                           alt='esun-news'
                           style={{
-                            width: "70%",
+                            width: document.documentElement.clientWidth <= 375 ? "100%" : "70%",
                             height: '100%',
                             objectFit: "fill"
                           }}
@@ -626,7 +628,7 @@ export default function Oba () {
                 sx={{
                   fontWeight: 600,
                   color: '#521414',
-                  fontSize: '25px'
+                  fontSize: {xs:'20px', md: '25px'}
                 }}
               >Biography</Typography>
               <Typography
@@ -991,7 +993,11 @@ export default function Oba () {
           </Box>}
         </Box>
 
-        <Box className={classes.second}>
+        <Box className={classes.second}
+          sx={{
+            width: {xs: '100%', md: '80%'}
+          }}
+        >
           <Box
             sx={{
               width: "100%",

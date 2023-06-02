@@ -2,8 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: white;
-    padding: 22px 80px 10px;
+    padding: 22px 40px 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.06);
     border-bottom: #712E1E solid 4px;
 }
@@ -16,6 +15,9 @@
 
 #logo{
     padding: 0 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
 }
 
 #navbar li{
@@ -58,7 +60,7 @@
         align-items: flex-start;
         justify-content: flex-start;
         position: fixed;
-        top: 65px;
+        top: 75px;
         right: -300px;
         width: 300px;
         height: 100vh;
@@ -88,10 +90,15 @@
 
     #mobile-view {
         display: block;
+        margin-right: 20px;
     }
 
     #mobile-view i{
         font-size: 24px;
         cursor: pointer;
+    }
+
+    #navy{
+        padding: 22px 20px 10px;
     }
 }

@@ -47,13 +47,12 @@ export default function History () {
           }}
         >
           <Typography
-            variant='h2'
             sx={{
-              fontWeight: 600,
+              fontWeight: 600, fontSize: {xs: '2rem', md: '3rem'},
               color: `${process.env.REACT_APP_MAIN_COLOR as string}`
             }}
           >
-            OUR STORY
+            OUR HISTORY
           </Typography>
         </Box>
         {status === 'loading'
@@ -88,10 +87,11 @@ export default function History () {
                   direction='column'
                   spacing={{ xs: 1, sm: 2, md: 4 }}
                   sx={{
-                    width: '80%',
+                    width: {md: '80%', xs: '100%'},
                     backgroundColor: 'white',
                     boxShadow: 4,
-                    p: 6
+                    px: {xs: 3.5, md: 6},
+                    py: 6
                   }}
                 >
                   <Box
