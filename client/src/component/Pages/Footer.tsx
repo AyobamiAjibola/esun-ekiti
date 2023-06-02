@@ -111,7 +111,8 @@ export default function Footer () {
             display: 'flex',
             justifyContent: 'right', mr: 2,
             alignItems: 'center',
-            width: { lg: '20%', sm: '100%' }
+            width: { lg: '20%', sm: '100%' },
+            mb: {md: 0, xs: 3}
           }}
         >
           <Typography variant='body1'
