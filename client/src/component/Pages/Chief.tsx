@@ -260,7 +260,7 @@ function Olori ({ setSelectedImg }: Props) {
                 component={ motion.div }
                 whileHover={{ opacity: 0.5 }}
                 sx={{
-                  width: {lg: '80%', xs: '100%'},
+                  width: '100%',
                   height: { sm: '80%', xs: '100%' },
                   display: 'flex',
                   justifyContent: 'center',
