@@ -87,7 +87,7 @@ export const fetchNewsActive = async (next: NextFunction, req: Request) => {
           news: fetch,
           image: value?.image && value?.image[0],
           title: value?.title.toUpperCase(),
-          createdAt: value?.createdAt.toLocaleString('en-US'),
+          createdAt: value?.createdAt,
           status: value?.status
         })
       });
@@ -132,7 +132,7 @@ export const fetchNewsLimit = async (next: NextFunction, req: Request) => {
         ({id: value.id,
           news: fetch, image:value.image,
           title: value.title,
-          createdAt: value.createdAt.toLocaleString('en-US'),
+          createdAt: value.createdAt,
           status: value.status
         })
       }
@@ -188,7 +188,7 @@ export const fetchNewsAll = async (next: NextFunction, req: Request) => {
         ({id: value.id,
           news: fetch, image:value.image,
           title: value.title,
-          createdAt: value.createdAt.toLocaleString('en-US'),
+          createdAt: value.createdAt,
           status: value.status
         })
     })

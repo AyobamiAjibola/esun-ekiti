@@ -14,6 +14,7 @@ import axios from '../../interceptor/axios';
 import { useQuery } from '@tanstack/react-query';
 import ErrorPage from '../helpers/ErrorPage';
 import '../Navbar/style.css';
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
   carousel: {
@@ -76,7 +77,7 @@ export default function Home () {
   })
 
   return (
-    <Stack>
+    <Stack mt={9}>
       <Box className={classes.carousel}
         sx={{
           height: { lg: '550px', sm: '400px', xs: '300px' },
@@ -328,7 +329,7 @@ export default function Home () {
                             return <Box key={ val.id }>
                             <Box
                               sx={{
-                                width: { lg: '100%', sm: '30%', xs: '50%' },
+                                width: '100%',
                                 height: '13em',
                                 marginBottom: '1em'
                               }}
@@ -381,7 +382,7 @@ export default function Home () {
                                   color: '#262728'
                                 }}
                               >
-                                posted on: { val.createdAt }
+                                posted on: { moment(val.createdAt).format('LL') }
                               </Typography>
                             </Box>
                             <hr />

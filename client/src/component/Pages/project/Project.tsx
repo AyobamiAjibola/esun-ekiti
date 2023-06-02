@@ -44,7 +44,7 @@ export default function Project () {
 
   return (
     <>
-      <Box
+      <Box mt={9}
         sx={{
           display: 'flex',
           justifyContent: 'center',
@@ -119,16 +119,17 @@ export default function Project () {
                         {page?.res2?.map((value: any) => { //eslint-disable-line
                           return <Box
                             sx={{
-                              width: '80%',
-                              height: { md: '20rem', xs: '16rem' },
+                              width: '90%',
+                              height: {md: '12rem', xs: '18rem'},
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
-                              flexDirection: 'column',
+                              flexDirection: {md: 'row', xs: 'column'},
                               margin: '0 0 20px',
                               borderBottom: `4px solid ${process.env.REACT_APP_MAIN_COLOR as string}`,
                               borderRadius: '5px',
-                              boxShadow: '2',
+                              boxShadow: 2,
+                              pr: {md: 2, xs : 0},
                               backgroundColor: 'white'
                             }}
                             key={ value.id }

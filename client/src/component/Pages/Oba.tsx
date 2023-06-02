@@ -4,7 +4,8 @@ import {
   Box,
   Typography,
   CircularProgress,
-  Button
+  Button,
+  Divider
 } from '@mui/material';
 import axios from '../../interceptor/axios';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
@@ -54,7 +55,7 @@ export default function Oba () {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%',
+        // width: '100%',
         height: 'auto',
         flexDirection: 'column'
       }}
@@ -91,7 +92,7 @@ export default function Oba () {
                 direction={{ sm: 'row', xs: 'column' }}
                 spacing={{ xs: 1, sm: 2, md: 4 }}
                 sx={{
-                  width: '90%',
+                  width: {md: '90%', xs: '100%'},
                   height: '45rem',
                   marginTop: '20px',
                   mb: 2,
@@ -146,11 +147,12 @@ export default function Oba () {
                     </Typography>
                   </Box>
                 </Box>
+                {document.documentElement.clientWidth <= 769 && <Divider orientation='horizontal' />}
                 <Box
                   sx={{
                     width: { lg: '60%', sm: '50%', xs: '100%' },
                     height: { lg: '40rem', sm: '28rem', xs: '22rem' },
-                    pt: 6
+                    pt: 2
                   }}
                 >
                   <Typography variant='h4'

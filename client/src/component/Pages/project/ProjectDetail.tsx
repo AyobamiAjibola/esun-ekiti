@@ -36,7 +36,7 @@ export default function ProjectDetail () {
 
   return (
     <>
-      <Stack
+      <Stack mt={9}
         direction='column'
         spacing={{ xs: 1, sm: 2, md: 4 }}
         sx={{
