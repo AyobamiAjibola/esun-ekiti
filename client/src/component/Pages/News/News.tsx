@@ -11,6 +11,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import ErrorPage from '../../helpers/ErrorPage';
 import InfinitScrollBtn from '../../helpers/InfinitScrollBtn';
+import moment from 'moment';
 
 const fetchNews = async (pageParam: number) => {
   const res = await axios.get(`news/fetch_news_active?page=${pageParam}&size=5`)
@@ -46,7 +47,7 @@ export default function News () {
 
   return (
     <>
-      <Box
+      <Box mt={9}
         sx={{
           display: 'flex',
           justifyContent: 'center',
@@ -73,26 +74,26 @@ export default function News () {
               justifyContent: 'left',
               alignItems: 'left',
               width: '90%',
-              margin: '30px 0 0px',
+              margin: '10px 0 0px',
               height: '5rem'
             }}
           >
             <>
-            <Typography
-              sx={{
-                fontWeight: 600, fontSize: {xs: '1.5rem', md: '3rem'},
-                color: process.env.REACT_APP_MAIN_COLOR as string
-              }}
-            >
-              Recent News
-            </Typography>
-            <RssFeed
-              sx={{
-                color: process.env.REACT_APP_HOVER_COLOR as string,
-                mb: '5px',
-                fontSize: {md: '3rem', xs: '1.5rem'}
-              }}
-            />
+              <Typography
+                sx={{
+                  fontWeight: 600, fontSize: {xs: '1.5rem', md: '3rem'},
+                  color: process.env.REACT_APP_MAIN_COLOR as string
+                }}
+              >
+                Recent News
+              </Typography>
+              <RssFeed
+                sx={{
+                  color: process.env.REACT_APP_HOVER_COLOR as string,
+                  mb: '5px',
+                  fontSize: {md: '3rem', xs: '1.5rem'}
+                }}
+              />
             </>
           </Box>
           {status === 'loading'
@@ -138,7 +139,7 @@ export default function News () {
                               margin: '0 0 20px',
                               backgroundColor: 'white',
                               boxShadow: 2,
-                              pr: 2,
+                              pr: {md: 2, xs : 0},
                               borderRadius: '5px',
                               borderBottom: `4px solid ${process.env.REACT_APP_MAIN_COLOR as string}`
                             }}
@@ -215,10 +216,12 @@ export default function News () {
                                   display: {md: 'none', xs: 'flex'},
                                   justifyContent: 'right',
                                   alignItems: 'flex-end',
-                                  mt: {sm: 4, xs: 0}
+                                  mt: {sm: 4, xs: 0}, mr: 1
                                 }}
                               >
-                                <Typography sx={{ fontWeight: 600, fontSize: '12px' }}>posted on: { value.createdAt }</Typography>
+                                <Typography sx={{ fontWeight: 600, fontSize: '12px' }}>
+                                  posted on: { moment(value.createdAt).format('LL') }
+                                </Typography>
                               </Box>
                               {document.documentElement.clientWidth > 769 && <Box
                                 sx={{
@@ -243,7 +246,9 @@ export default function News () {
                                 >
                                     [ ...Continue reading ]
                                 </Typography>
-                                <Typography sx={{ fontWeight: 600, fontSize: '12px' }}>posted on: { value.createdAt }</Typography>
+                                <Typography sx={{ fontWeight: 600, fontSize: '12px' }}>
+                                  posted on: { moment(value.createdAt).format('LL') }
+                                </Typography>
                               </Box>}
                             </Box>
                           </Box>

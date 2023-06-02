@@ -25,7 +25,7 @@ export default function History () {
 
   return (
     <>
-      <Box
+      <Box mt={9}
         sx={{
           width: '100%',
           height: 'auto',

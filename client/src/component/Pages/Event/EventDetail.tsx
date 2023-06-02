@@ -36,7 +36,7 @@ export default function EventDetail () {
   console.log(eventData)
   return (
     <>
-      <Stack
+      <Stack mt={9}
         direction='column'
         spacing={{ xs: 1, sm: 2, md: 4 }}
         sx={{

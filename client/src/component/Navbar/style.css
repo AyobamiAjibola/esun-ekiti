@@ -5,6 +5,8 @@
     padding: 22px 40px 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.06);
     border-bottom: #712E1E solid 4px;
+    position: fixed;
+    z-index: 2;
 }
 
 #navbar{

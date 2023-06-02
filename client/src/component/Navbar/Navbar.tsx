@@ -23,7 +23,8 @@ export default function Nav () {
       <nav id='navy'
         style={{
           backgroundColor: 'white',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          width: '100%'
         }}
       >
         <Link to='/' id="logo"

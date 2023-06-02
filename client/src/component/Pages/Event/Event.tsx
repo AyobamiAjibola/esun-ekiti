@@ -45,7 +45,7 @@ export default function Event () {
 
   return (
     <>
-      <Box
+      <Box mt={9}
         sx={{
           display: 'flex',
           justifyContent: 'center',
@@ -129,7 +129,7 @@ export default function Event () {
                               margin: '0 0 20px',
                               backgroundColor: 'white',
                               boxShadow: 2,
-                              pr: 2,
+                              pr: {md: 2, xs : 0},
                               borderRadius: '5px',
                               borderBottom: `4px solid ${process.env.REACT_APP_MAIN_COLOR as string}`
                             }}

@@ -127,7 +127,7 @@ export default function Chief () {
                               whileHover={{ opacity: 0.5 }}
                               sx={{
                                 width: '100%',
-                                height: '80%',
+                                height: {md: '80%', xs: '70%'},
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
@@ -162,7 +162,7 @@ export default function Chief () {
                             <Box
                               sx={{
                                 width: '80%',
-                                height: '20%',
+                                height: {md: '20%', xs: '30%'},
                                 marginTop: { sm: '30px', xs: '40px' }
                               }}
                             >

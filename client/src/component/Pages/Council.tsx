@@ -71,7 +71,7 @@ export default function Council () {
   const classes = useStyles();
   const screenWidth = document.documentElement.clientWidth
   return (
-    <Box sx={{ width: '100%', backgroundColor: 'white' }}>
+    <Box sx={{ width: '100%', backgroundColor: 'white' }} mt={9}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={value}
