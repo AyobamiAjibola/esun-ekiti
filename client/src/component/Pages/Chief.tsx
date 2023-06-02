@@ -127,7 +127,7 @@ export default function Chief () {
                               whileHover={{ opacity: 0.5 }}
                               sx={{
                                 width: '100%',
-                                height: { sm: '80%', xs: '100%' },
+                                height: '80%',
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center',
@@ -162,7 +162,7 @@ export default function Chief () {
                             <Box
                               sx={{
                                 width: '80%',
-                                height: { sm: '20%', xs: '60%' },
+                                height: '20%',
                                 marginTop: { sm: '30px', xs: '40px' }
                               }}
                             >
@@ -261,7 +261,7 @@ function Olori ({ setSelectedImg }: Props) {
                 whileHover={{ opacity: 0.5 }}
                 sx={{
                   width: '100%',
-                  height: { sm: '80%', xs: '100%' },
+                  height: '80%',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center'
@@ -282,7 +282,7 @@ function Olori ({ setSelectedImg }: Props) {
               <Box
                 sx={{
                   width: '80%',
-                  height: { sm: '20%', xs: '60%' },
+                  height: '20%',
                   marginTop: { sm: '10px', xs: '40px' }
                 }}
               >
