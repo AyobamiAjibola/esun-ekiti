@@ -75,7 +75,7 @@ export default function Home () {
   useLayoutEffect(() => {
     document.body.style.backgroundColor = process.env.REACT_APP_BG_COLOR as string
   })
-
+  console.log(data, 'data')
   return (
     <Stack mt={9}>
       <Box className={classes.carousel}
