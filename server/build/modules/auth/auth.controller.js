@@ -46,8 +46,15 @@ const login_admin = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
             return next(new appError_1.default(validate.error.message, response_codes_1.BAD_REQUEST));
         }
         const { token, refreshToken } = yield (0, auth_services_1.adminLogin)(req.body, next);
-        res.setHeader('Access-Control-Allow-Credentials', 'true');
-        res.cookie('refreshToken', refreshToken);
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            path: '/',
+            domain: process.env.BASE_URL,
+            expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+            sameSite: 'none',
+            secure: true
+        });
         res.status(response_codes_1.OK).json({
             status: "success",
             message: "Login was successful.",

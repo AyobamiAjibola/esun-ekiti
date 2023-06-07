@@ -61,19 +61,8 @@ const logout = (req, res, next) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.logout = logout;
 const cookie = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const cookies = req.headers.cookie;
-    if (cookies) {
-        const cookieArray = cookies.split(';');
-        let refreshToken = null;
-        for (const cookie of cookieArray) {
-            const [name, value] = cookie.trim().split('=');
-            if (name === 'refreshToken') {
-                refreshToken = value;
-                break;
-            }
-        }
-        return refreshToken;
-    }
+    const cookie = req.cookies['refreshToken'];
+    return cookie;
 });
 exports.cookie = cookie;
 //# sourceMappingURL=auth.services.js.map
