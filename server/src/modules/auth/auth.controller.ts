@@ -53,16 +53,15 @@ const login_admin = async (req: Request, res: Response, next: NextFunction) => {
     //   .join('; ')}`;
 
     // res.setHeader('Set-Cookie', cookieString);
-      res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        path: '/',
-        domain: process.env.BASE_URL,
-        expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
-        sameSite: 'none',
-        secure: true
-      });
-
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      path: '/',
+      domain: process.env.BASE_URL,
+      expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+      sameSite: 'none',
+      secure: true
+    });
 
     res.status(OK).json({
       status: "success",

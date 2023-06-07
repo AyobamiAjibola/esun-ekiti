@@ -275,7 +275,7 @@ export default function Login () {
               >
                 Sign In
               </LoadingButton>
-              <Link to='/register'>Register</Link>
+              {/* <Link to='/register'>Register</Link> */}
             <Box
               sx={{
                 display: 'flex',
