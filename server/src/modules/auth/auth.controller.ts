@@ -59,6 +59,8 @@ const login_admin = async (req: Request, res: Response, next: NextFunction) => {
       path: '/',
       domain: process.env.BASE_URL,
       expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+      sameSite: 'none',
+      secure: true
     });
 
     res.status(OK).json({
