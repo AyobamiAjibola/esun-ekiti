@@ -4,6 +4,12 @@ import AppSettings = appCommonTypes.AppSettings;
 import 'dotenv/config';
 
 const settings: AppSettings = {
+
+  service: {
+    env: <string>process.env.NODE_ENV,
+    port: <string>process.env.PORT,
+    apiRoot: <string>process.env.ROOT_API,
+  },
   postgres: {
     development: {
       database: <string>process.env.SQL_DEV_DB_NAME,

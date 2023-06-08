@@ -14,6 +14,11 @@ export declare namespace appCommonTypes {
   }
 
   interface AppSettings {
+    service: {
+      port: string;
+      env: string;
+      apiRoot?: string;
+    };
     postgres: Record<DatabaseEnv, DatabaseConfig>;
   }
 
