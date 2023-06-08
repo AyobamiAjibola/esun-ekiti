@@ -66,7 +66,7 @@ const fetch_history = async (req: Request, res: Response, next: NextFunction) =>
     const result = await historyServices.fetchHistory(next, req);
     const info = result?.result
     const info2 = result?.fetch
-    console.log(info2, 'history')
+
     return res.status(OK).json({
       status: "success",
       message: "Fetch successful",
