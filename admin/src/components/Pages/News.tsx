@@ -152,7 +152,6 @@ export default function News () {
     try {
       setIsLoading(true)
       const res = await axiosPrivate.get('news/fetch_news_all')
-
       setData(res?.data?.data?.res2)
       setIsLoading(false)
     } catch (err: any) {
@@ -160,7 +159,7 @@ export default function News () {
       setIsLoading(false)
     }
   };
-
+ 
   const deleteNews = async () => {
     try {
       setValues({ ...values, isLoading: true })

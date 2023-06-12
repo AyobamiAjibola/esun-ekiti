@@ -226,10 +226,22 @@ export default function EditEvent () {
                         display: 'flex',
                         mr: '5px',
                         mt: 3,
-                        borderRadius: '15px'
+                        borderRadius: '15px',
+                        flexDirection: 'column',
+                        position: 'relative'
                       }}
                       key={index}
                     >
+                      <img
+                        src={ process.env.REACT_APP_IMG_URL + value } //eslint-disable-line
+                        crossOrigin="anonymous"
+                        alt='img'
+                        style={{
+                          width: "100%",
+                          height: '100%',
+                          objectFit: "fill"
+                        }}
+                      />
                       <Tooltip
                         title="Delete image"
                         placement="top"
@@ -255,16 +267,7 @@ export default function EditEvent () {
                           <Delete sx={{ fontSize: "0.7rem" }}/>
                         </IconButton>
                       </Tooltip>
-                      <img
-                        src={ process.env.REACT_APP_IMG_URL + value } //eslint-disable-line
-                        crossOrigin="anonymous"
-                        alt='img'
-                        style={{
-                          width: "100%",
-                          height: '100%',
-                          objectFit: "fill"
-                        }}
-                      />
+                      
                   </Box>
                   })}
                   {(response.data?.singleEvent?.image?.length < 4 || response.data?.singleEvent?.image === null) && <Box

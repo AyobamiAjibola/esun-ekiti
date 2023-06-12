@@ -21,6 +21,12 @@ export default class Event extends Model<InferAttributes<Event>, InferCreationAt
     @Column(DataType.STRING(20000))
     declare detail: string;
 
+    @Column(DataType.STRING)
+    declare videoLink: string;
+
+    @Column(DataType.STRING)
+    declare videoTitle: string;
+
     @Column(DataType.ARRAY(DataType.STRING))
     declare image: string;
 

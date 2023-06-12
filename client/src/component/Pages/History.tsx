@@ -134,7 +134,7 @@ export default function History () {
                           sx={{
                             width: { md: '50%', xs: '100%' },
                             height: '15rem',
-                            cursor: 'pointer'
+                            cursor: 'zoom-in'
                           }}
                           key={index}
                           onClick={() => setSelectedImg(value)}

@@ -30,6 +30,7 @@ export default function Modal ({ selectedImg, setSelectedImg }: Props) {
           alt="enlarged picture"
           initial={{ y: "-100vh" }}
           animate={{ y: 0 }}
+          onClick={() => setSelectedImg(null)}
         />
       </motion.div>}
       {selectedImg.includes('BABS') && <motion.div className="back" onClick={ handleClick } //eslint-disable-line
@@ -42,6 +43,7 @@ export default function Modal ({ selectedImg, setSelectedImg }: Props) {
           alt="enlarged picture"
           initial={{ y: "-100vh" }}
           animate={{ y: 0 }}
+          onClick={() => setSelectedImg(null)}
         />
       </motion.div>}
     </>

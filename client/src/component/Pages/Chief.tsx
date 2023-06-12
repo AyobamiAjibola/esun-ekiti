@@ -132,7 +132,7 @@ export default function Chief () {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 margin: -2,
-                                cursor: 'pointer'
+                                cursor: 'zoom-in'
                               }}
                               onClick={() => setSelectedImg(value?.image)}
                             >
@@ -275,7 +275,7 @@ function Olori ({ setSelectedImg }: Props) {
                     width: "100%",
                     height: '100%',
                     objectFit: "fill",
-                    cursor: "pointer"
+                    cursor: 'zoom-in'
                   }}
                 />
               </Box>

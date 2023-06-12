@@ -7,6 +7,8 @@ import { NewsType } from "./news.types";
 import { Op, Sequelize } from "sequelize";
 import { getPagination, getPagingData } from "../../helpers/Pagination";
 import News from '../../models/News';
+import CommentNews from "../../models/CommentNews";
+import Reply from "../../models/Reply";
 
 export const newNews = async (body: NewsType, next: NextFunction, req: Request) => {
 
@@ -54,8 +56,13 @@ export const updNewsImg = async (body: NewsType, next: NextFunction, req: Reques
 };
 
 export const readSingleNews = async (next: NextFunction, req: Request) => {
+  const single_news = await News.findOne({
+    where: { id: req.params.id },
+    include: [
+      {model: CommentNews, include: [Reply]}
+    ]
+  });
 
-  const single_news = await News.findOne({ where: { id: req.params.id } });
   return single_news;
 
 };
@@ -154,7 +161,10 @@ export const fetchNewsAll = async (next: NextFunction, req: Request) => {
           status: {
             [Op.or]: ["pending", "active"]
           }
-        }
+        },
+        include: [
+          {model: CommentNews, include: [Reply]}
+        ]
       }
     );
 

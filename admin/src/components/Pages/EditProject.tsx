@@ -1,18 +1,19 @@
 import React, { useEffect, useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core";
 import { LoadingButton } from "@mui/lab";
-import { Box, Button, Fade, IconButton, Modal, TextField, Tooltip, Typography, CircularProgress } from "@mui/material";
+import { Box, Button, Fade, IconButton, Modal, TextField, Tooltip, Typography, CircularProgress, Collapse, TableContainer, Paper, LinearProgress, TableHead, TableRow, TableCell, Zoom, Table, TableBody, Dialog, DialogTitle, Divider, DialogContent, DialogActions, DialogContentText } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAxios } from "../hooks/useAxios";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { SnackContext } from "../../context";
-import { Add, Delete, Save, Warning } from "@mui/icons-material";
+import { Add, Delete, Edit, KeyboardArrowDown, KeyboardArrowUp, Save, Warning, WarningOutlined } from "@mui/icons-material";
 import axios from '../../interceptors/axios_api';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import SnackBar from "../utils/SnackBar";
+import capitalize from "capitalize";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -22,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column'
+  },
+  title: {
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  content: {
+    fontSize: 20
   },
   wrap: {
     width: "80%",
@@ -107,6 +115,18 @@ export default function EditProject () {
   const [errMsg, setErrMsg] = useState<any>('');
   const [fileName, setFileName] = useState<any>();
   const [delId, setDelId] = useState(null);
+  const [_delId, _setDelId] = useState(null);
+  const [_open, _setOpen] = useState<boolean>(false);
+  const [modal, setModal] = useState<boolean>(false);
+  const [viewComment, setViewComment] = useState<string>('');
+  const [name, setName] = useState<string>('');//very rubbish thing i did here. FYI I was tired need to rest.
+  const [openComments, setOpenComments] =  useState<boolean>(false);
+
+  const __handleOpen = () => {setModal(true)};
+  const __handleClose = () => {setModal(false)};
+
+  const _handleOpen = () => _setOpen(true);
+  const _handleClose = () => _setOpen(false);
 
   const handleClose = () => {
     navigate('/project')
@@ -207,6 +227,32 @@ export default function EditProject () {
     }
   }, [reset, response]);
 
+  const deleteComment = async () => {
+    try {
+      await axiosPrivate.delete(`comment/project/delete/${_delId}`)
+
+      _handleClose()
+      setUpdate(true)
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
+  const handleToggleShowComments = () => {
+    setOpenComments(() => {
+      return !openComments;
+    })
+  };
+
+  useEffect(() => {
+    if(modal){
+      const value = response?.data?.singleProject?.comments.find((comment: any) => comment.id === _delId )
+      setViewComment(value.comment);
+      setName(value.name)
+    }
+    
+  },[modal])
+
   return (
     <Box className={ classes.wrapper }>
         { !loading
@@ -237,45 +283,48 @@ export default function EditProject () {
                           display: 'flex',
                           mr: '5px',
                           mt: 3,
-                          borderRadius: '15px'
+                          borderRadius: '15px',
+                          flexDirection: 'column',
+                          position: 'relative'
                         }}
                         key={index}
                     >
-                        <Tooltip
-                            title="Delete image"
-                            placement="top"
-                        >
+                      <img
+                        src={ process.env.REACT_APP_IMG_URL + value }
+                        crossOrigin="anonymous"
+                        alt='img'
+                        style={{
+                          width: "100%",
+                          height: '100%',
+                          objectFit: "fill"
+                        }}
+                      />
+                      <Tooltip
+                        title="Delete image"
+                        placement="top"
+                      >
                         <IconButton
-                            onClick={() => {
-                            setDelId(value) //eslint-disable-line
-                              openModal()
-                            }}
-                            sx={{
-                              zIndex: 1,
-                              position: "absolute",
-                              backgroundColor: "#521414",
-                              color: 'white',
-                              marginLeft: 1,
-                              "&:hover": {
-                                color: "#521414",
-                                backgroundColor: 'white   '
-                              },
-                              mt: 1
-                            }}
+                          onClick={() => {
+                          setDelId(value) //eslint-disable-line
+                            openModal()
+                          }}
+                          sx={{
+                            zIndex: 1,
+                            position: "absolute",
+                            backgroundColor: "#521414",
+                            color: 'white',
+                            marginLeft: 1,
+                            "&:hover": {
+                              color: "#521414",
+                              backgroundColor: 'white   '
+                            },
+                            mt: 1
+                          }}
                         >
-                            <Delete sx={{ fontSize: "0.7rem" }}/>
+                          <Delete sx={{ fontSize: "0.7rem" }}/>
                         </IconButton>
-                        </Tooltip>
-                        <img
-                            src={ process.env.REACT_APP_IMG_URL + value }
-                            crossOrigin="anonymous"
-                            alt='img'
-                            style={{
-                              width: "100%",
-                              height: '100%',
-                              objectFit: "fill"
-                            }}
-                        />
+                      </Tooltip>
+                        
                     </Box>
                     })}
                     {(response.data?.singleProject?.image?.length < 4 || response.data?.singleProject?.image === null) && <Box
@@ -635,6 +684,177 @@ export default function EditProject () {
               <CircularProgress />
             </Box> }
       <SnackBar />
+
+      {/* start comments */}
+
+      <Typography variant="h4"
+        sx={{
+          textAlign: 'left',
+          fontWeight: 600, mt: 2,
+          color: process.env.REACT_APP_MAIN_COLOR
+        }}
+      >
+        Comments
+      </Typography>
+      <Box
+        onClick={() => handleToggleShowComments()}
+        sx={{
+          cursor: 'pointer', '&:hover': {color: 'grey'},
+          color: process.env.REACT_APP_MAIN_COLOR,
+          width: '100%', display: 'flex', ml: 6, mt:  4,
+          justifyContent: 'left', alignItems: 'center'
+        }}
+      >
+        <Typography sx={{fontSize: 14, textShadow: 5, fontWeight: 600}}>
+          {openComments
+            ? 'Hide comments'
+            : `Show comments`
+          }
+        </Typography>
+        {openComments ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+      </Box>
+      <Collapse in={openComments} timeout={{ enter: 800, exit: 500 }}
+        sx={{maxHeight: '20rem', width: '100%', mb: 8}}
+      >
+        <TableContainer component={Paper} sx={{ maxWidth: "90%", mt: 4 }}>
+            { loading && <LinearProgress color='primary' /> }
+            <Table sx={{ width: "100%" }} aria-label="simple table">
+            <TableHead>
+              <TableRow sx={{ backgroundColor: "#CBB8B8" }}>
+                <TableCell align="left">S/NO</TableCell>
+                <TableCell align="center">Name</TableCell>
+                <TableCell align="center">Comment</TableCell>
+                <TableCell align="center"></TableCell>
+                <TableCell align="center"></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+            {response?.data?.singleProject?.comments.map((value: any, index: number) => (
+              <TableRow
+                key={index}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell align="left" sx={{ width: 5 }}>{index + 1}</TableCell>
+                <TableCell align="center">{value.name || ''}</TableCell>
+                <TableCell align="center">{value.comment}</TableCell>
+                <TableCell align="center">
+                  <Tooltip TransitionComponent={Zoom} title="Delete">
+                    <IconButton
+                      onClick={() => {
+                        _setDelId(value.id)
+                        _handleOpen()
+                      }}
+                    >
+                      <Delete sx={{ fontSize: "md", color: "#521414", "&:hover": { color: "red" } }}/>
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
+                <TableCell align="center">
+                  <Tooltip TransitionComponent={Zoom} title="Edit">
+                    <IconButton
+                      onClick={() => {
+                        _setDelId(value.id)
+                        __handleOpen()
+                        
+                      }}
+                    >
+                        <Edit sx={{ fontSize: "md", color: "#521414", "&:hover": { color: "green" } }}/>
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
+              </TableRow>
+            ))}
+            </TableBody>
+            </Table>
+        </TableContainer>
+      </Collapse>
+
+      <Modal
+        open={_open}
+        onClose={_handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        closeAfterTransition
+      >
+        <Fade in={_open}>
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h5" component="h2" sx={{ fontWeight: 600 }}>
+              Confirmation <WarningOutlined sx={{ color: "black" }} />
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2, fontWeight: 500, color: "red", mb: 3 }}>
+              Are you sure you want to delete this comment?
+            </Typography>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <LoadingButton
+                onClick={ deleteComment } // eslint-disable-line
+                size="small"
+                loading={values.isLoading}
+                loadingIndicator="Deleting..."
+                variant="contained"
+                sx={{
+                  mb: 2,
+                  mr: 5,
+                  width: "50%",
+                  color: "white",
+                  backgroundColor: "red",
+                  boxShadow: 4,
+                  "&:hover": { backgroundColor: "white", color: "red" }
+                }}
+              >
+                Delete
+              </LoadingButton>
+              <Button
+                onClick={_handleClose}
+                size="small"
+                variant="contained"
+                sx={{
+                  mb: 2,
+                  width: "50%",
+                  color: "white",
+                  backgroundColor: "green",
+                  boxShadow: 4,
+                  "&:hover": { backgroundColor: "white", color: "green" }
+                }}
+              >
+                Cancel
+              </Button>
+            </Box>
+          </Box>
+        </Fade>
+      </Modal>
+
+      <Box
+        sx={{
+          width: '15rem'
+        }}
+      >
+        <Dialog
+          open={modal}
+          onClose={__handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          PaperProps={{
+            sx: {
+              width: '500px'
+            },
+          }}
+        >
+          <DialogTitle id="alert-dialog-title" className={classes.title}>
+            {name ? `Comment from ${capitalize.words(name)}` : 'Comment from anonymous'}
+          </DialogTitle>
+          <Divider orientation="horizontal"/>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description" className={classes.content}>
+              {viewComment}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={__handleClose}>Close</Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
+      {/* end comments */}
+
     </Box>
   )
 }

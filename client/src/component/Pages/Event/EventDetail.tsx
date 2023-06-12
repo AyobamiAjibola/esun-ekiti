@@ -12,6 +12,7 @@ import { useParams } from 'react-router-dom';
 import axios from '../../../interceptor/axios';
 import { useQuery } from '@tanstack/react-query';
 import ErrorPage from '../../helpers/ErrorPage';
+import YouTubeVideo from '../../helpers/YoutubeVideo';
 
 const useStyles = makeStyles((theme) => ({
   img: {
@@ -33,7 +34,7 @@ export default function EventDetail () {
   useLayoutEffect(() => {
     document.body.style.backgroundColor = process.env.REACT_APP_BG_COLOR as string
   });
-  console.log(eventData)
+
   return (
     <>
       <Stack mt={9}
@@ -106,7 +107,7 @@ export default function EventDetail () {
                           width: { lg: '10rem', xs: '5rem' },
                           height: { lg: '10rem', xs: '5rem' },
                           margin: { lg: '30px 10px', xs: '10px 10px' },
-                          cursor: 'pointer',
+                          cursor: 'zoom-in',
                           borderRadius: '1rem',
                           border: `4px solid ${process.env.REACT_APP_MAIN_COLOR as string}`
                         }}
@@ -128,39 +129,62 @@ export default function EventDetail () {
                   </Box>
                   <Box
                     sx={{
-                      width: '80%',
+                      width: '100%',
                       height: 'auto',
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
                       flexDirection: 'column',
-                      paddingBottom: '5rem'
+                      paddingBottom: '5rem',
+                      px: 5
                     }}
                   >
                     <Typography
                       sx={{
-                        fontSize: '25px',
+                        fontSize: {md: '2.5rem', xs: '1.5rem'},
                         fontWeight: 600,
                         mb: 4,
                         mt: 4,
                         textAlign: 'center',
                         color: `${process.env.REACT_APP_MAIN_COLOR as string}`
                       }}
-                      >
-                        { eventData?.data?.data?.singleEvent?.name.toUpperCase() }
-                      </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: '18px',
-                        wordSpacing: '5px',
-                        lineHeight: 1.5,
-                        color: '#585858',
-                        textAlign: 'justify',
-                        mb: 3
-                      }}
                     >
-                      { eventData?.data?.data?.singleEvent?.detail }
+                      { eventData?.data?.data?.singleEvent?.name.toUpperCase() }
                     </Typography>
+
+                    <Box sx={{width: '60%', height: '0.2px', backgroundColor: '#CCCCCC', mt: 1, mb: 8}}/>
+
+                    <Box>
+                      <Typography
+                        sx={{
+                          fontSize: '18px',
+                          wordSpacing: '5px',
+                          lineHeight: 1.5,
+                          color: '#585858',
+                          textAlign: 'justify',
+                          mb: 3
+                        }}
+                      >
+                      <Box
+                        sx={{
+                          width: {lg: 600, md: 400, xs: 200},
+                          height: 300,
+                          float: 'left',
+                          mr: 2, my: 2,
+                          display: eventData?.data?.data?.singleEvent?.videoLink ? 'block' : 'none'
+                        }}
+                      >
+                        <YouTubeVideo
+                          videoLink={eventData?.data?.data?.singleEvent?.videoLink}
+                          title={eventData?.data?.data?.singleEvent?.videoTitle}
+                          width='100%'
+                          height= '300px'
+                        />
+                      </Box>
+                      { eventData?.data?.data?.singleEvent?.detail }
+                      </Typography>
+                    </Box>
+
                   </Box>
                 </Box>
               )

@@ -7,6 +7,8 @@ import { ProjectType } from "./project.types";
 import { Op, Sequelize } from "sequelize";
 import { getPagination, getPagingData } from "../../helpers/Pagination";
 import Project from "../../models/Project";
+import CommentProject from "../../models/CommentProject";
+import Reply from "../../models/Reply";
 
 export const newProject = async (body: ProjectType, next: NextFunction, req: Request) => {
 
@@ -54,7 +56,12 @@ export const updProjectImg = async (body: ProjectType, next: NextFunction, req: 
 
 export const readSingleProject = async (next: NextFunction, req: Request) => {
 
-  const single_project = await Project.findOne({ where: { id: req.params.id } });
+  const single_project = await Project.findOne({
+    where: { id: req.params.id },
+    include: [
+      {model: CommentProject, include: [ Reply ]}
+    ]
+  });
   return single_project;
 
 };
@@ -71,7 +78,10 @@ export const fetchProject = async (next: NextFunction, req: Request) => {
     };
     const biz = await Project.findAll({
       where: {isProject: "active"},
-      limit: 5
+      limit: 5,
+      include: [
+        {model: CommentProject, include: [ Reply ]}
+      ]
     });
 
     for (let i = 1; i < biz.length; i++) {

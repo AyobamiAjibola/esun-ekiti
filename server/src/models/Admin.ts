@@ -12,7 +12,12 @@ import {
 export default class Admin extends Model<InferAttributes<Admin>, InferCreationAttributes<Admin>> {
     @PrimaryKey
     // @AutoIncrement
-    @Column({type: DataType.UUID, field: 'admin_id', allowNull: false, defaultValue: UUIDV4})
+    @Column({
+        type: DataType.UUID,
+        field: 'admin_id',
+        allowNull: false,
+        defaultValue: UUIDV4
+    })
     declare id: CreationOptional<string>;
 
     @Column(DataType.STRING)
