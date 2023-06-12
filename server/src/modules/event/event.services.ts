@@ -41,7 +41,8 @@ export const updEvent = async (body: EventType, next: NextFunction, req: Request
     const upd = await Event.update(
       {
         name,
-        detail
+        detail,
+        ...req.body
       },
       { where: { name: req.params.id } }
     );

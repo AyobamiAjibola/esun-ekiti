@@ -74,6 +74,8 @@ const useStyles = makeStyles((theme) => ({
 interface Inputs {
   news: string
   title: string
+  videoLink: string
+  videoTitle: string
 }
 
 const style = {
@@ -149,6 +151,8 @@ export default function EditNews () {
       const formData = new FormData();
       formData.append("news", data.news);
       formData.append("title", data.title.toLowerCase());
+      formData.append("videoLink", data.videoLink.trim());
+      formData.append("videoTitle", data.videoTitle)
 
       const res = await axiosPrivate.put(`news/upd_news/${id}`, formData);
 
@@ -212,7 +216,9 @@ export default function EditNews () {
     if (response !== undefined) {
       reset({
         news: response.data?.singleNews.news,
-        title: response.data?.singleNews.title
+        title: response.data?.singleNews.title,
+        videoLink: response.data?.singleNews.videoLink,
+        videoTitle: response.data?.singleNews.videoTitle
       });
     }
   }, [reset, response]);
@@ -551,6 +557,42 @@ export default function EditNews () {
                 (<Typography variant='body2' mt={1}
                 component='span' sx={{ color: 'red', textAlign: 'left' }}
                 >{errors.news?.message}</Typography>)
+            }
+            <TextField
+              autoFocus
+              variant='filled'
+              margin="normal"
+              fullWidth
+              id="video link"
+              label="Headline"
+              {...register("videoLink")}
+              InputLabelProps={{
+                shrink: true
+              }}
+              error={!!errors?.videoLink}
+            />
+            {errors.videoLink &&
+              (<Typography variant='body2' mt={1}
+              component='span' sx={{ color: 'red', textAlign: 'left' }}
+              >{errors.videoLink?.message}</Typography>)
+            }
+            <TextField
+              autoFocus
+              variant='filled'
+              margin="normal"
+              fullWidth
+              id="video title"
+              label="Headline"
+              {...register("videoTitle")}
+              InputLabelProps={{
+                shrink: true
+              }}
+              error={!!errors?.videoTitle}
+            />
+            {errors.videoTitle &&
+              (<Typography variant='body2' mt={1}
+              component='span' sx={{ color: 'red', textAlign: 'left' }}
+              >{errors.videoTitle?.message}</Typography>)
             }
             <Box
               sx={{

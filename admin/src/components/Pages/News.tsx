@@ -87,6 +87,8 @@ interface NewsProps {
 interface Inputs {
   news: string
   title: string
+  videoLink: string
+  videoTitle: string
 }
 
 interface Pagination {
@@ -528,6 +530,8 @@ function PostNews ({ state, setState, classes, axiosPrivate, setUpdList }: NewsP
       const formData = new FormData();
       formData.append("title", data.title.toLowerCase());
       formData.append("news", data.news);
+      formData.append("videoLink", data.videoLink.trim());
+      formData.append("videoTitle", data.videoTitle);
 
       const res = await axiosPrivate.post("news/new_news", formData);
 
@@ -625,6 +629,42 @@ function PostNews ({ state, setState, classes, axiosPrivate, setUpdList }: NewsP
             (<Typography variant='body2' mt={1}
             component='span' sx={{ color: 'red', textAlign: 'left' }}
             >{errors.news?.message}</Typography>)
+          }
+          <TextField
+            autoFocus
+            variant='filled'
+            margin="normal"
+            fullWidth
+            id="video link"
+            label="Headline"
+            {...register("videoLink")}
+            InputLabelProps={{
+              shrink: true
+            }}
+            error={!!errors?.videoLink}
+          />
+          {errors.videoLink &&
+            (<Typography variant='body2' mt={1}
+            component='span' sx={{ color: 'red', textAlign: 'left' }}
+            >{errors.videoLink?.message}</Typography>)
+          }
+          <TextField
+            autoFocus
+            variant='filled'
+            margin="normal"
+            fullWidth
+            id="video title"
+            label="Headline"
+            {...register("videoTitle")}
+            InputLabelProps={{
+              shrink: true
+            }}
+            error={!!errors?.videoTitle}
+          />
+          {errors.videoTitle &&
+            (<Typography variant='body2' mt={1}
+            component='span' sx={{ color: 'red', textAlign: 'left' }}
+            >{errors.videoTitle?.message}</Typography>)
           }
           <Box
             sx={{

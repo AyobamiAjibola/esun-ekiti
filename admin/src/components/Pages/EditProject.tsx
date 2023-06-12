@@ -77,6 +77,8 @@ const useStyles = makeStyles((theme) => ({
 interface Inputs {
   project: string
   detail: string
+  videoLink: string
+  videoTitle: string
 }
 
 const style = {
@@ -152,6 +154,8 @@ export default function EditProject () {
       const formData = new FormData();
       formData.append("project", data.project.toLowerCase());
       formData.append("detail", data.detail);
+      formData.append("videoLink", data.videoLink.trim());
+      formData.append("videoTitle", data.videoTitle)
       // formData.append("date_commissioned", values.date_commissioned);
 
       const res = await axiosPrivate.put(`project/upd_project/${id}`, formData);
@@ -220,7 +224,9 @@ export default function EditProject () {
     if (response !== undefined) {
       reset({
         project: response.data?.singleProject.project,
-        detail: response.data?.singleProject.detail
+        detail: response.data?.singleProject.detail,
+        videoLink: response.data?.singleProject.videoLink,
+        videoTitle: response.data?.singleProject.videoTitle
       });
       setValues({})
       // setValues({ ...values, date_commissioned: response.data?.singleProject.date_commissioned })
@@ -618,6 +624,62 @@ export default function EditProject () {
                 (<Typography variant='body2' mt={1}
                 component='span' sx={{ color: 'red', textAlign: 'left' }}
                 >{errors.detail?.message}</Typography>)
+              }
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'left',
+                flexDirection: 'column',
+                width: '100%'
+              }}
+            >
+              <TextField
+                autoFocus
+                variant='filled'
+                margin="normal"
+                fullWidth
+                id="video link"
+                label="Headline"
+                {...register("videoLink")}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                error={!!errors?.videoLink}
+              />
+              {errors.videoLink &&
+                (<Typography variant='body2' mt={1}
+                component='span' sx={{ color: 'red', textAlign: 'left' }}
+                >{errors.videoLink?.message}</Typography>)
+              }
+            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'left',
+                flexDirection: 'column',
+                width: '100%'
+              }}
+            >
+              <TextField
+                autoFocus
+                variant='filled'
+                margin="normal"
+                fullWidth
+                id="video title"
+                label="Headline"
+                {...register("videoTitle")}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                error={!!errors?.videoTitle}
+              />
+              {errors.videoTitle &&
+                (<Typography variant='body2' mt={1}
+                component='span' sx={{ color: 'red', textAlign: 'left' }}
+                >{errors.videoTitle?.message}</Typography>)
               }
             </Box>
             <Box

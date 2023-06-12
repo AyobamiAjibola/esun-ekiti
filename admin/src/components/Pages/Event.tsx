@@ -85,6 +85,8 @@ interface NewsProps {
 interface Inputs {
   name: string
   detail: string
+  videoLink: string
+  videoTitle: string
 }
 
 interface Pagination {
@@ -508,6 +510,8 @@ function PostEvent ({ state, setState, classes, axiosPrivate, setUpdList }: News
       const formData = new FormData();
       formData.append("name", data.name.toLowerCase());
       formData.append("detail", data.detail);
+      formData.append("videoLink", data.videoLink.trim());
+      formData.append("videoTitle", data.videoTitle);
 
       const res = await axiosPrivate.post("event/new_event", formData);
 
@@ -606,6 +610,42 @@ function PostEvent ({ state, setState, classes, axiosPrivate, setUpdList }: News
             component='span' sx={{ color: 'red', textAlign: 'left' }}
             >{errors.detail?.message}</Typography>)
           }
+          <TextField
+            autoFocus
+            variant='filled'
+            margin="normal"
+            fullWidth
+            id="video link"
+            label="Headline"
+            {...register("videoLink")}
+            InputLabelProps={{
+              shrink: true
+            }}
+            error={!!errors?.videoLink}
+          />
+            {errors.videoLink &&
+              (<Typography variant='body2' mt={1}
+              component='span' sx={{ color: 'red', textAlign: 'left' }}
+              >{errors.videoLink?.message}</Typography>)
+            }
+            <TextField
+              autoFocus
+              variant='filled'
+              margin="normal"
+              fullWidth
+              id="video title"
+              label="Headline"
+              {...register("videoTitle")}
+              InputLabelProps={{
+                shrink: true
+              }}
+              error={!!errors?.videoTitle}
+            />
+            {errors.videoTitle &&
+              (<Typography variant='body2' mt={1}
+              component='span' sx={{ color: 'red', textAlign: 'left' }}
+              >{errors.videoTitle?.message}</Typography>)
+            }
           <Box
             sx={{
               display: "flex",
