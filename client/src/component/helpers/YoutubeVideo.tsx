@@ -14,9 +14,9 @@ const YouTubeVideo = ({videoLink, title, width, height}: Props) => {
       <iframe
         width={width}
         height={height}
-        src={`https://www.youtube.com/embed/${videoLink}`}
+        src={videoLink ? videoLink : ''}
         title={title}
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen
       ></iframe>
     </div>

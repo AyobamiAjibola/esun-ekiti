@@ -646,7 +646,7 @@ function PostProject ({ state, setState, classes, axiosPrivate, setUpdList }: Ne
               margin="normal"
               fullWidth
               id="video link"
-              label="Headline"
+              label="Video Link"
               {...register("videoLink")}
               InputLabelProps={{
                 shrink: true
@@ -674,7 +674,7 @@ function PostProject ({ state, setState, classes, axiosPrivate, setUpdList }: Ne
               margin="normal"
               fullWidth
               id="video title"
-              label="Headline"
+              label="Video Title"
               {...register("videoTitle")}
               InputLabelProps={{
                 shrink: true

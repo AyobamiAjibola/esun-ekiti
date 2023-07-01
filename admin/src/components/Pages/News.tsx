@@ -636,7 +636,7 @@ function PostNews ({ state, setState, classes, axiosPrivate, setUpdList }: NewsP
             margin="normal"
             fullWidth
             id="video link"
-            label="Headline"
+            label="Video Link"
             {...register("videoLink")}
             InputLabelProps={{
               shrink: true
@@ -654,7 +654,7 @@ function PostNews ({ state, setState, classes, axiosPrivate, setUpdList }: NewsP
             margin="normal"
             fullWidth
             id="video title"
-            label="Headline"
+            label="Video Title"
             {...register("videoTitle")}
             InputLabelProps={{
               shrink: true
